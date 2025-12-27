@@ -3,60 +3,107 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Configurateur PC - Mon Site</title>
+    <title>Configurateur PC Complet</title>
     <style>
-        body { font-family: 'Segoe UI', sans-serif; background-color: #1a1a1a; color: white; padding: 20px; }
-        .container { max-width: 800px; margin: auto; background: #2d2d2d; padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-        h1 { color: #00d4ff; text-align: center; }
-        .section { margin-bottom: 20px; }
-        label { display: block; margin-bottom: 8px; font-weight: bold; }
-        select { width: 100%; padding: 12px; border-radius: 5px; border: none; background: #3d3d3d; color: white; font-size: 16px; }
-        .total { font-size: 24px; text-align: right; margin-top: 30px; color: #00d4ff; border-top: 1px solid #444; padding-top: 20px; }
+        body { font-family: 'Segoe UI', sans-serif; background-color: #121212; color: white; padding: 20px; }
+        .container { max-width: 900px; margin: auto; background: #1e1e1e; padding: 30px; border-radius: 15px; border: 1px solid #333; }
+        h1 { color: #00d4ff; text-align: center; text-transform: uppercase; letter-spacing: 2px; }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .section { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; color: #bbb; font-size: 14px; }
+        select { width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #444; background: #2a2a2a; color: white; cursor: pointer; }
+        select:hover { border-color: #00d4ff; }
+        .total-box { margin-top: 30px; padding: 20px; background: #00d4ff; color: #000; border-radius: 10px; text-align: center; }
+        #prix-total { font-size: 32px; font-weight: bold; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h1>🖥️ Mon Configurateur PC</h1>
+    <h1>🖥️ Configurateur PC Expert</h1>
     
-    <div class="section">
-        <label>Processeur (CPU)</label>
-        <select id="cpu">
-            <option value="0">-- Choisir un processeur --</option>
-            <option value="200">Intel Core i5-13600K (200€)</option>
-            <option value="400">AMD Ryzen 9 7900X (400€)</option>
-            <option value="600">Intel Core i9-14900K (600€)</option>
-        </select>
+    <div class="grid">
+        <div class="section">
+            <label>Processeur (CPU)</label>
+            <select class="composant" id="cpu">
+                <option value="0">-- Choisir --</option>
+                <option value="150">i3-13100 (150€)</option>
+                <option value="300">i5-13600K (300€)</option>
+                <option value="550">i9-14900K (550€)</option>
+            </select>
+        </div>
+
+        <div class="section">
+            <label>Carte Graphique (GPU)</label>
+            <select class="composant" id="gpu">
+                <option value="0">-- Choisir --</option>
+                <option value="300">RTX 4060 (300€)</option>
+                <option value="800">RTX 4080 (800€)</option>
+                <option value="1600">RTX 4090 (1600€)</option>
+            </select>
+        </div>
+
+        <div class="section">
+            <label>Mémoire Vive (RAM)</label>
+            <select class="composant" id="ram">
+                <option value="0">-- Choisir --</option>
+                <option value="50">16Go DDR5 (50€)</option>
+                <option value="110">32Go DDR5 (110€)</option>
+                <option value="220">64Go DDR5 (220€)</option>
+            </select>
+        </div>
+
+        <div class="section">
+            <label>Stockage (SSD)</label>
+            <select class="composant" id="ssd">
+                <option value="0">-- Choisir --</option>
+                <option value="60">1To NVMe (60€)</option>
+                <option value="130">2To NVMe (130€)</option>
+                <option value="250">4To NVMe (250€)</option>
+            </select>
+        </div>
+
+        <div class="section">
+            <label>Boîtier</label>
+            <select class="composant" id="case">
+                <option value="0">-- Choisir --</option>
+                <option value="70">Standard ATX (70€)</option>
+                <option value="150">Premium RGB (150€)</option>
+            </select>
+        </div>
+
+        <div class="section">
+            <label>Alimentation (PSU)</label>
+            <select class="composant" id="psu">
+                <option value="0">-- Choisir --</option>
+                <option value="80">650W Bronze (80€)</option>
+                <option value="140">850W Gold (140€)</option>
+                <option value="200">1000W Platinum (200€)</option>
+            </select>
+        </div>
     </div>
 
-    <div class="section">
-        <label>Carte Graphique (GPU)</label>
-        <select id="gpu">
-            <option value="0">-- Choisir une carte graphique --</option>
-            <option value="350">NVIDIA RTX 4060 Ti (350€)</option>
-            <option value="850">NVIDIA RTX 4080 Super (850€)</option>
-            <option value="1600">NVIDIA RTX 4090 (1600€)</option>
-        </select>
-    </div>
-
-    <div class="total">
-        Prix estimé : <span id="prix-total">0</span> €
+    <div class="total-box">
+        Total de votre configuration : <br>
+        <span id="prix-total">0</span> €
     </div>
 </div>
 
 <script>
-    // Petit script pour calculer le prix automatiquement
-    const cpuSelect = document.getElementById('cpu');
-    const gpuSelect = document.getElementById('gpu');
+    const selects = document.querySelectorAll('.composant');
     const totalDisplay = document.getElementById('prix-total');
 
     function calculerTotal() {
-        const total = parseInt(cpuSelect.value) + parseInt(gpuSelect.value);
+        let total = 0;
+        selects.forEach(select => {
+            total += parseInt(select.value);
+        });
         totalDisplay.innerText = total;
     }
 
-    cpuSelect.addEventListener('change', calculerTotal);
-    gpuSelect.addEventListener('change', calculerTotal);
+    selects.forEach(select => {
+        select.addEventListener('change', calculerTotal);
+    });
 </script>
 
 </body>
