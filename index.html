@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Le Comptoir du Farfadet Geek</title>
+    <title>Le Comptoir du Farfadet</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         :root {
             --primary: #8DE4AF; /* Vert Sauge Doux (Aérien) */
@@ -12,6 +13,11 @@
             --card: #242B27;    /* Vert de gris profond */
             --text: #F0F5F2;    /* Blanc cassé / Brume */
             --accent: #3A473F;  /* Écorce mouillée */
+
+            /* Couleurs des logos pour l'effet */
+            --instagram-color: #E4405F;
+            --discord-color: #7289DA;
+            --youtube-color: #FF0000;
         }
 
         body {
@@ -34,6 +40,7 @@
             border-radius: 30px;
             border: 1px solid var(--accent);
             box-shadow: 0 10px 50px rgba(0, 0, 0, 0.4);
+            position: relative; /* Pour positionner les icônes */
         }
 
         h1 {
@@ -144,6 +151,48 @@
             margin-top: 30px;
             letter-spacing: 1px;
         }
+
+        /* Styles pour les icônes de réseaux sociaux */
+        .social-links {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            gap: 15px;
+            z-index: 10;
+        }
+
+        .social-link {
+            font-size: 24px;
+            color: #ccc; /* Couleur de base en niveaux de gris */
+            transition: all 0.3s ease-in-out;
+            filter: grayscale(100%) opacity(0.6); /* Démarre en niveaux de gris et un peu transparent */
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Animation au survol */
+        .social-link:hover {
+            filter: grayscale(0%) opacity(1); /* Reviens en couleur */
+            transform: scale(1.2); /* Zoom léger */
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.6); /* Légère lueur */
+        }
+
+        /* Couleurs spécifiques au survol pour les icônes */
+        .social-link.instagram:hover { color: var(--instagram-color); }
+        .social-link.discord:hover { color: var(--discord-color); }
+        .social-link.youtube:hover { color: var(--youtube-color); }
+
+        /* Styles pour les options désactivées (titres de section) */
+        select option[disabled] {
+            color: var(--primary) !important;
+            font-weight: bold !important;
+            background-color: #2e3732 !important; /* Un fond légèrement différent pour les titres */
+            padding-left: 10px;
+            pointer-events: none; /* Empêche la sélection même si cliquable */
+        }
     </style>
 </head>
 <body>
@@ -160,6 +209,19 @@
     </div>
 
     <p class="info-footer">Déniché avec soin dans les bois d'Idealo</p>
+
+    <div class="social-links">
+        <a href="https://www.instagram.com/farfatechs/" target="_blank" class="social-link instagram" title="Rejoins-nous sur Instagram">
+            <i class="fab fa-instagram"></i>
+        </a>
+        <a href="https://discord.gg/dj7ueSS9sh" target="_blank" class="social-link discord" title="Parle aux Farfadets sur Discord">
+            <i class="fab fa-discord"></i>
+        </a>
+        <a href="https://www.youtube.com/@Farfatech" target="_blank" class="social-link youtube" title="Découvre nos aventures sur YouTube">
+            <i class="fab fa-youtube"></i>
+        </a>
+    </div>
+
 </div>
 
 <script>
@@ -191,7 +253,9 @@
                     opt.innerText = item.nom + (item.prix > 0 ? ` (${item.prix}€)` : '');
                     if (item.prix === 0) {
                         opt.disabled = true;
-                        opt.style.color = '#8DE4AF';
+                        opt.style.color = 'var(--primary)'; // Utilise la variable CSS
+                        opt.style.fontWeight = 'bold';
+                        opt.style.backgroundColor = 'var(--card)'; // Utilise la variable CSS
                     }
                     select.appendChild(opt);
                 });
@@ -200,6 +264,7 @@
                 btnSearch.innerHTML = '🔍';
                 btnSearch.className = 'btn-search';
                 btnSearch.target = '_blank';
+                btnSearch.title = "Dénicher le meilleur prix sur Idealo";
 
                 select.addEventListener('change', () => {
                     const selectedText = select.options[select.selectedIndex].text;
@@ -222,12 +287,26 @@
                 form.appendChild(section);
             }
             calculerTotal();
-        } catch (e) { console.error(e); }
+        } catch (e) { console.error("Erreur de lecture du grimoire magique :", e); }
     }
 
     function calculerTotal() {
-        let total = prixBase;
-        document.querySelectorAll('.composant-select').forEach(s => total += parseInt(s.value));
+        let total = 0; // Commencer à 0 par défaut
+        let auMoinsUnElementSelectionne = false; // Pour savoir si un élément a été sélectionné
+
+        document.querySelectorAll('.composant-select').forEach(s => {
+            const valeur = parseInt(s.value);
+            if (valeur > 0) { // On ajoute seulement les éléments qui ont un prix > 0
+                total += valeur;
+                auMoinsUnElementSelectionne = true;
+            }
+        });
+
+        // N'ajouter le prix de base que si au moins un composant a été choisi
+        if (auMoinsUnElementSelectionne && prixBase > 0) {
+            total += prixBase;
+        }
+
         document.getElementById('prix-total').innerText = total;
     }
 
