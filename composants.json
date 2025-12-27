@@ -51,13 +51,15 @@
     {"nom": "GIGABYTE X670E AORUS MASTER", "prix": 490}
   ],
   "memoire_ram": [
-    {"nom": "--- DDR4 (Corsair/G.Skill) ---", "prix": 0},
-    {"nom": "16Go Corsair Vengeance (2x8) 3200", "prix": 45},
-    {"nom": "32Go Corsair Vengeance (2x16) 3600", "prix": 85},
-    {"nom": "--- DDR5 (Performance) ---", "prix": 0},
-    {"nom": "32Go Corsair Vengeance 6000 CL30", "prix": 135},
-    {"nom": "32Go G.Skill Trident Z5 6400", "prix": 150},
-    {"nom": "64Go Corsair Vengeance 6000", "prix": 240}
+    {"nom": "--- DDR4 (3200MHz min) ---", "prix": 0},
+    {"nom": "16Go Kingston FURY Beast 3200", "prix": 45},
+    {"nom": "32Go G.Skill Ripjaws V 3200", "prix": 75},
+    {"nom": "32Go TeamGroup T-Force Delta RGB 3600", "prix": 90},
+    {"nom": "--- DDR5 (6000MHz min) ---", "prix": 0},
+    {"nom": "32Go Kingston FURY Renegade 6000", "prix": 130},
+    {"nom": "32Go G.Skill Trident Z5 Neo RGB 6000", "prix": 145},
+    {"nom": "32Go TeamGroup T-Force Delta RGB 6000", "prix": 140},
+    {"nom": "64Go G.Skill Trident Z5 6400", "prix": 250}
   ],
   "refroidissement": [
     {"nom": "--- Ventirads ---", "prix": 0},
@@ -71,16 +73,14 @@
   "alimentation": [
     {"nom": "--- 650W à 750W ---", "prix": 0},
     {"nom": "MSI MAG A650BN 650W", "prix": 65},
-    {"nom": "Corsair RM750e Gold", "prix": 110},
     {"nom": "--- 850W à 1200W ---", "prix": 0},
     {"nom": "Seasonic Focus GX-850", "prix": 140},
-    {"nom": "Corsair RM1000x Shift", "prix": 210},
     {"nom": "Be Quiet! Dark Power 13 1200W", "prix": 300}
   ],
   "boitiers": [
     {"nom": "NZXT H5 Flow", "prix": 95},
-    {"nom": "Phantef XT pro ultra", "prix": 95},
-    {"nom": "fractal design pop air xl", "prix": 110},
+    {"nom": "Phanteks XT Pro Ultra", "prix": 95},
+    {"nom": "Fractal Design Pop Air XL", "prix": 110},
     {"nom": "Corsair 4000D Airflow", "prix": 105},
     {"nom": "Lian Li O11 Dynamic EVO", "prix": 185},
     {"nom": "Hyte Y70 Touch", "prix": 400}
