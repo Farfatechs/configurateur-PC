@@ -13,6 +13,7 @@
             --card: #242B27; 
             --text: #F0F5F2; 
             --accent: #3A473F;
+            --danger: #FF5F5F;
             --instagram-color: #E4405F; 
             --discord-color: #7289DA; 
             --youtube-color: #FF0000;
@@ -23,56 +24,59 @@
             background-color: var(--bg);
             background-image: linear-gradient(135deg, #1A1F1C 0%, #2D3631 100%);
             color: var(--text); 
-            margin: 0; 
-            padding: 20px; 
-            display: flex; 
-            justify-content: center; 
+            margin: 0; padding: 20px; 
+            display: flex; justify-content: center; 
             min-height: 100vh;
         }
 
         .container {
-            width: 100%; 
-            max-width: 850px; 
+            width: 100%; max-width: 850px; 
             background: var(--card); 
-            padding: 40px;
-            border-radius: 30px; 
+            padding: 40px; border-radius: 30px; 
             border: 1px solid var(--accent); 
             box-shadow: 0 10px 50px rgba(0, 0, 0, 0.4);
-            position: relative; 
-            padding-bottom: 80px;
+            position: relative; padding-bottom: 100px;
         }
 
         h1 { text-align: center; color: var(--primary); text-shadow: 0 4px 10px rgba(141, 228, 175, 0.2); margin-bottom: 10px; font-weight: 300; letter-spacing: 2px; }
         .subtitle { text-align: center; color: var(--gold); font-size: 0.85rem; margin-bottom: 40px; opacity: 0.7; font-style: italic; letter-spacing: 3px; text-transform: uppercase; }
-        
+
+        /* ALERT COMPATIBILITÉ */
+        #compat-warning {
+            display: none;
+            background: rgba(255, 95, 95, 0.1);
+            border: 1px solid var(--danger);
+            color: var(--danger);
+            padding: 15px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 0.9rem;
+            animation: shake 0.4s ease-in-out;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
         .section { margin-bottom: 25px; }
         label { display: block; margin-bottom: 12px; color: var(--primary); font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; opacity: 0.8; }
         
         .input-group { display: flex; gap: 15px; align-items: center; }
 
-        /* --- CORRECTION DU SELECT ET DES OPTIONS --- */
         select { 
-            flex: 1; 
-            padding: 14px; 
-            border-radius: 12px; 
+            flex: 1; padding: 14px; border-radius: 12px; 
             border: 1px solid var(--accent); 
-            background: #2D3631; /* Fond solide pour éviter les soucis */
-            color: var(--text); 
-            font-size: 15px; 
-            cursor: pointer; 
-            transition: 0.3s; 
-            outline: none;
-            appearance: none; /* Uniformise le look sur mobile */
+            background: #2D3631; color: var(--text); 
+            font-size: 15px; cursor: pointer; transition: 0.3s; outline: none;
         }
 
-        /* Force la visibilité des options dans la liste */
-        select option {
-            background-color: #1A1F1C; /* Fond sombre pour la liste */
-            color: #FFFFFF; /* Texte blanc pur */
-            padding: 10px;
-        }
+        select.error { border-color: var(--danger); box-shadow: 0 0 10px rgba(255, 95, 95, 0.2); }
 
-        select:hover { border-color: var(--primary); }
+        select option { background-color: #1A1F1C; color: #FFFFFF; }
 
         .btn-search { text-decoration: none; background: var(--gold); color: #242B27; width: 52px; height: 52px; display: none; align-items: center; justify-content: center; border-radius: 15px; font-size: 20px; transition: 0.4s; }
         .btn-search:hover { transform: translateY(-5px); box-shadow: 0 5px 15px rgba(230, 194, 0, 0.4); }
@@ -80,19 +84,16 @@
         .total-container { margin-top: 40px; padding: 35px; background: rgba(141, 228, 175, 0.05); border: 1px dashed var(--primary); border-radius: 20px; text-align: center; }
         #prix-total { font-size: 50px; font-weight: 200; color: var(--primary); }
 
-        .share-box { text-align: center; margin-top: 20px; }
+        .share-box { text-align: center; margin-top: 30px; }
         .btn-share { 
-            background: transparent; border: 1px solid var(--gold); color: var(--gold); padding: 10px 20px; 
-            border-radius: 50px; cursor: pointer; font-size: 0.9rem; transition: 0.3s; display: none;
+            background: var(--gold); border: none; color: #1A1F1C; padding: 12px 25px; 
+            border-radius: 50px; cursor: pointer; font-size: 1rem; font-weight: bold;
+            transition: 0.3s; display: none;
         }
-        .btn-share:hover { background: var(--gold); color: black; }
 
         .social-links { position: absolute; bottom: 25px; right: 25px; display: flex; gap: 15px; }
         .social-link { font-size: 24px; color: #ccc; transition: 0.3s; filter: grayscale(100%) opacity(0.6); text-decoration: none; }
         .social-link:hover { filter: grayscale(0%) opacity(1); transform: scale(1.2); }
-        .social-link.instagram:hover { color: var(--instagram-color); }
-        .social-link.discord:hover { color: var(--discord-color); }
-        .social-link.youtube:hover { color: var(--youtube-color); }
     </style>
 </head>
 <body>
@@ -100,6 +101,10 @@
 <div class="container">
     <h1>🍀 LE COMPTOIR DU FARFADET</h1>
     <p class="subtitle">le plus malicieux du net</p>
+
+    <div id="compat-warning">
+        <i class="fas fa-exclamation-triangle"></i> <span id="warning-text"></span>
+    </div>
     
     <div id="config-form"></div>
 
@@ -115,15 +120,15 @@
     </div>
 
     <div class="social-links">
-        <a href="https://www.instagram.com/farfatechs/" target="_blank" class="social-link instagram"><i class="fab fa-instagram"></i></a>
-        <a href="https://discord.gg/dj7ueSS9sh" target="_blank" class="social-link discord"><i class="fab fa-discord"></i></a>
-        <a href="https://www.youtube.com/@Farfatech" target="_blank" class="social-link youtube"><i class="fab fa-youtube"></i></a>
+        <a href="https://www.instagram.com/farfatechs/" target="_blank" class="social-link"><i class="fab fa-instagram"></i></a>
+        <a href="https://discord.gg/dj7ueSS9sh" target="_blank" class="social-link"><i class="fab fa-discord"></i></a>
+        <a href="https://www.youtube.com/@Farfatech" target="_blank" class="social-link"><i class="fab fa-youtube"></i></a>
     </div>
 </div>
 
 <script>
-    let prixBase = 0;
     let dataComposants = {};
+    let prixBase = 0;
 
     async function chargerComposants() {
         try {
@@ -140,65 +145,85 @@
 
                 const section = document.createElement('div');
                 section.className = 'section';
-                const group = document.createElement('div');
-                group.className = 'input-group';
-
-                const select = document.createElement('select');
-                select.className = 'composant-select';
-                select.id = `select-${index}`;
-                select.innerHTML = `<option value="0">-- ${key.replace(/_/g, ' ').toUpperCase()} --</option>`;
-
-                dataComposants[key].forEach((item, i) => {
-                    const opt = document.createElement('option');
-                    opt.value = item.prix;
-                    opt.dataset.index = i;
-                    opt.innerText = item.nom + (item.prix > 0 ? ` (${item.prix}€)` : '');
-                    
-                    // Style pour les titres à 0€ dans le JSON
-                    if (item.prix === 0) { 
-                        opt.disabled = true; 
-                        opt.style.color = '#8DE4AF'; 
-                        opt.style.fontWeight = 'bold';
-                    }
-                    select.appendChild(opt);
-                });
-
-                const btnSearch = document.createElement('a');
-                btnSearch.innerHTML = '🔍';
-                btnSearch.className = 'btn-search';
-                btnSearch.target = '_blank';
-
-                select.addEventListener('change', () => {
-                    updateUI(select, btnSearch);
-                    calculerTotal();
-                });
+                section.innerHTML = `
+                    <label>${key.replace(/_/g, ' ')}</label>
+                    <div class="input-group">
+                        <select class="composant-select" id="select-${index}" data-type="${key}" onchange="analyserConfig()">
+                            <option value="0" data-idx="-1">-- CHOISIR --</option>
+                            ${dataComposants[key].map((item, i) => `
+                                <option value="${item.prix}" data-idx="${i}" ${item.prix === 0 ? 'disabled' : ''}>
+                                    ${item.nom} ${item.prix > 0 ? `(${item.prix}€)` : ''}
+                                </option>
+                            `).join('')}
+                        </select>
+                        <a class="btn-search" target="_blank" title="Dénicher sur Idealo">🔍</a>
+                    </div>
+                `;
+                form.appendChild(section);
 
                 const savedIndex = urlParams.get(`c${index}`);
                 if (savedIndex !== null) {
+                    const select = document.getElementById(`select-${index}`);
                     select.selectedIndex = parseInt(savedIndex) + 1;
-                    setTimeout(() => updateUI(select, btnSearch), 100);
                 }
-
-                group.appendChild(select);
-                group.appendChild(btnSearch);
-                section.innerHTML = `<label>${key.replace(/_/g, ' ')}</label>`;
-                section.appendChild(group);
-                form.appendChild(section);
                 index++;
             }
-            calculerTotal();
+            analyserConfig();
         } catch (e) { console.error(e); }
     }
 
-    function updateUI(select, btnSearch) {
-        const selectedText = select.options[select.selectedIndex].text;
-        const nomNettoye = selectedText.split('(')[0].trim();
-        if (select.value !== "0") {
-            btnSearch.href = `https://www.google.com/search?q=${encodeURIComponent(nomNettoye + " idealo")}`;
-            btnSearch.style.display = 'flex';
-        } else {
-            btnSearch.style.display = 'none';
+    function analyserConfig() {
+        const picks = {};
+        const selects = document.querySelectorAll('.composant-select');
+        
+        // Reset des erreurs
+        selects.forEach(s => s.classList.remove('error'));
+        let errorMsg = "";
+
+        // Récupération des choix
+        selects.forEach(s => {
+            const type = s.dataset.type;
+            const idx = s.options[s.selectedIndex].dataset.idx;
+            if (idx >= 0) picks[type] = dataComposants[type][idx];
+            
+            // Update Loupe
+            const btn = s.parentElement.querySelector('.btn-search');
+            if(s.value > 0) {
+                btn.href = `https://www.google.com/search?q=${encodeURIComponent(picks[type].nom + " idealo")}`;
+                btn.style.display = 'flex';
+            } else btn.style.display = 'none';
+        });
+
+        // --- TESTS DE COMPATIBILITÉ ---
+        
+        // 1. Socket (CPU vs Carte Mère)
+        if(picks.processeurs && picks.cartes_meres) {
+            if(picks.processeurs.socket !== picks.cartes_meres.socket) {
+                errorMsg = `🚨 Incompatible : Le ${picks.processeurs.nom} (${picks.processeurs.socket}) ne va pas sur cette carte mère (${picks.cartes_meres.socket}).`;
+                document.querySelector('[data-type="processeurs"]').classList.add('error');
+                document.querySelector('[data-type="cartes_meres"]').classList.add('error');
+            }
         }
+
+        // 2. RAM (Carte Mère vs Barrettes)
+        if(!errorMsg && picks.cartes_meres && picks.memoire_ram) {
+            if(picks.cartes_meres.ram !== picks.memoire_ram.type) {
+                errorMsg = `🚨 Erreur RAM : Cette carte mère supporte la ${picks.cartes_meres.ram}, mais tu as choisi de la ${picks.memoire_ram.type}.`;
+                document.querySelector('[data-type="cartes_meres"]').classList.add('error');
+                document.querySelector('[data-type="memoire_ram"]').classList.add('error');
+            }
+        }
+
+        // Affichage alerte
+        const warnDiv = document.getElementById('compat-warning');
+        if(errorMsg) {
+            document.getElementById('warning-text').innerText = errorMsg;
+            warnDiv.style.display = 'block';
+        } else {
+            warnDiv.style.display = 'none';
+        }
+
+        calculerTotal();
     }
 
     function calculerTotal() {
@@ -216,21 +241,19 @@
         const params = new URLSearchParams();
         document.querySelectorAll('.composant-select').forEach((s, i) => {
             if (s.selectedIndex > 0) {
-                params.set(`c${i}`, s.options[s.selectedIndex].dataset.index);
+                params.set(`c${i}`, s.options[s.selectedIndex].dataset.idx);
             }
         });
         const fullUrl = window.location.origin + window.location.pathname + '?' + params.toString();
-        
         navigator.clipboard.writeText(fullUrl).then(() => {
             const btn = document.getElementById('btn-share');
-            const originalText = btn.innerHTML;
+            const old = btn.innerHTML;
             btn.innerHTML = "✅ LIEN COPIÉ !";
-            setTimeout(() => { btn.innerHTML = originalText; }, 2000);
+            setTimeout(() => btn.innerHTML = old, 2000);
         });
     }
 
     window.onload = chargerComposants;
 </script>
-
 </body>
 </html>
