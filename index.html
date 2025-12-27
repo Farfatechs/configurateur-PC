@@ -3,16 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mon Nouveau Site</title>
+    <title>Configurateur PC - Mon Site</title>
     <style>
-        body { font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; background-color: #f4f4f4; }
-        .card { background: white; padding: 2rem; border-radius: 10px; shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        body { font-family: 'Segoe UI', sans-serif; background-color: #1a1a1a; color: white; padding: 20px; }
+        .container { max-width: 800px; margin: auto; background: #2d2d2d; padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        h1 { color: #00d4ff; text-align: center; }
+        .section { margin-bottom: 20px; }
+        label { display: block; margin-bottom: 8px; font-weight: bold; }
+        select { width: 100%; padding: 12px; border-radius: 5px; border: none; background: #3d3d3d; color: white; font-size: 16px; }
+        .total { font-size: 24px; text-align: right; margin-top: 30px; color: #00d4ff; border-top: 1px solid #444; padding-top: 20px; }
     </style>
 </head>
 <body>
-    <div class="card">
-        <h1>🚀 Nouveau départ réussi !</h1>
-        <p>Mon site est maintenant hébergé sur GitHub et prêt pour Vercel.</p>
+
+<div class="container">
+    <h1>🖥️ Mon Configurateur PC</h1>
+    
+    <div class="section">
+        <label>Processeur (CPU)</label>
+        <select id="cpu">
+            <option value="0">-- Choisir un processeur --</option>
+            <option value="200">Intel Core i5-13600K (200€)</option>
+            <option value="400">AMD Ryzen 9 7900X (400€)</option>
+            <option value="600">Intel Core i9-14900K (600€)</option>
+        </select>
     </div>
+
+    <div class="section">
+        <label>Carte Graphique (GPU)</label>
+        <select id="gpu">
+            <option value="0">-- Choisir une carte graphique --</option>
+            <option value="350">NVIDIA RTX 4060 Ti (350€)</option>
+            <option value="850">NVIDIA RTX 4080 Super (850€)</option>
+            <option value="1600">NVIDIA RTX 4090 (1600€)</option>
+        </select>
+    </div>
+
+    <div class="total">
+        Prix estimé : <span id="prix-total">0</span> €
+    </div>
+</div>
+
+<script>
+    // Petit script pour calculer le prix automatiquement
+    const cpuSelect = document.getElementById('cpu');
+    const gpuSelect = document.getElementById('gpu');
+    const totalDisplay = document.getElementById('prix-total');
+
+    function calculerTotal() {
+        const total = parseInt(cpuSelect.value) + parseInt(gpuSelect.value);
+        totalDisplay.innerText = total;
+    }
+
+    cpuSelect.addEventListener('change', calculerTotal);
+    gpuSelect.addEventListener('change', calculerTotal);
+</script>
+
 </body>
 </html>
