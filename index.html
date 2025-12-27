@@ -6,8 +6,8 @@
     <title>Le Comptoir du Farfadet Geek</title>
     <style>
         :root {
-            --primary: #48FF7B; /* Vert Néon */
-            --gold: #FFD700;    /* Or Magique */
+            --primary: #48FF7B; /* Vert Néon Magique */
+            --gold: #FFD700;    /* Or du Farfadet */
             --bg: #0D110D;      /* Fond Forêt Sombre */
             --card: #1A221A;    /* Écorce / Circuit */
             --text: #E0E0E0;
@@ -41,6 +41,19 @@
             color: var(--primary);
             text-shadow: 0 0 15px rgba(72, 255, 123, 0.6);
             margin-bottom: 40px;
+            font-size: 2.2rem;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: var(--gold);
+            font-size: 0.9rem;
+            margin-top: -35px;
+            margin-bottom: 45px;
+            opacity: 0.9;
+            font-style: italic;
+            letter-spacing: 1.5px;
+            text-shadow: 0 0 5px rgba(255, 215, 0, 0.3);
         }
 
         .section {
@@ -74,6 +87,12 @@
             font-family: inherit;
             cursor: pointer;
             outline: none;
+            transition: all 0.3s ease;
+        }
+
+        select:hover {
+            box-shadow: 0 0 15px rgba(72, 255, 123, 0.3);
+            border-color: var(--gold);
         }
 
         .btn-search {
@@ -82,7 +101,7 @@
             color: #000;
             width: 52px;
             height: 52px;
-            display: none; /* Apparaît via JS */
+            display: none; /* S'affiche quand un composant est choisi */
             align-items: center;
             justify-content: center;
             border-radius: 12px;
@@ -94,6 +113,7 @@
         .btn-search:hover {
             transform: scale(1.1) rotate(5deg);
             background: #fff;
+            box-shadow: 0 0 25px rgba(255, 255, 255, 0.6);
         }
 
         .total-container {
@@ -105,23 +125,45 @@
             text-align: center;
         }
 
+        .total-label {
+            font-size: 16px;
+            font-weight: bold;
+            color: var(--gold);
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+        }
+
         #prix-total {
             font-size: 55px;
             font-weight: 900;
             color: var(--primary);
             text-shadow: 0 0 20px var(--primary);
         }
+
+        .info-footer {
+            text-align: center;
+            font-size: 11px;
+            color: #556655;
+            margin-top: 25px;
+            font-style: italic;
+        }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h1>🍀 CONFIGURATEUR PC</h1>
-    <div id="config-form"></div>
+    <h1>🍀 LE COMPTOIR DU FARFADET GEEK</h1>
+    <p class="subtitle">le plus malicieux du net</p>
+    
+    <div id="config-form">
+        </div>
+
     <div class="total-container">
-        <div style="color: var(--gold); font-weight: bold; margin-bottom: 10px;">BUTIN TOTAL ESTIMÉ</div>
+        <div class="total-label">BUTIN TOTAL ESTIMÉ</div>
         <div><span id="prix-total">0</span> €</div>
     </div>
+
+    <p class="info-footer">"Trouve la meilleure pépite grâce à la loupe d'or d'Idealo"</p>
 </div>
 
 <script>
@@ -140,14 +182,16 @@
 
                 const section = document.createElement('div');
                 section.className = 'section';
-                const labelName = key.replace(/_/g, ' ').toUpperCase();
+
+                const label = document.createElement('label');
+                label.innerText = key.replace(/_/g, ' ');
 
                 const group = document.createElement('div');
                 group.className = 'input-group';
 
                 const select = document.createElement('select');
                 select.className = 'composant-select';
-                select.innerHTML = `<option value="0">-- Choisir ${labelName} --</option>`;
+                select.innerHTML = `<option value="0">-- Choisir ${label.innerText.toUpperCase()} --</option>`;
 
                 data[key].forEach(item => {
                     const opt = document.createElement('option');
@@ -166,17 +210,14 @@
                 btnSearch.innerHTML = '🔍';
                 btnSearch.className = 'btn-search';
                 btnSearch.target = '_blank';
+                btnSearch.title = "Dénicher le meilleur prix sur Idealo";
 
-                // LOGIQUE DE RECHERCHE DYNAMIQUE
                 select.addEventListener('change', () => {
-                    const selectedOption = select.options[select.selectedIndex];
-                    const fullText = selectedOption.text;
-                    
-                    // On extrait le nom sans le prix (ex: "AMD Ryzen 5 5500")
-                    const nomNettoye = fullText.split('(')[0].trim();
+                    const selectedText = select.options[select.selectedIndex].text;
+                    const nomNettoye = selectedText.split('(')[0].trim();
 
                     if (select.value !== "0") {
-                        // On crée le lien exact : Nom + idealo
+                        // Génération du lien : Nom + idealo
                         const query = encodeURIComponent(nomNettoye + " idealo");
                         btnSearch.href = `https://www.google.com/search?q=${query}`;
                         btnSearch.style.display = 'flex';
@@ -188,13 +229,13 @@
 
                 group.appendChild(select);
                 group.appendChild(btnSearch);
-                section.innerHTML = `<label>${labelName}</label>`;
+                section.appendChild(label);
                 section.appendChild(group);
                 form.appendChild(section);
             }
             calculerTotal();
         } catch (e) {
-            console.error("Erreur de grimoire :", e);
+            console.error("Erreur de lecture du grimoire magique :", e);
         }
     }
 
