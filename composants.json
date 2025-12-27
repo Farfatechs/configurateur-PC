@@ -1,45 +1,86 @@
 {
   "processeurs": [
     {"nom": "--- AM4 (DDR4) ---", "prix": 0, "url": "#"},
-    {"nom": "AMD Ryzen 5 5500", "prix": 100, "url": "https://www.google.com/search?tbm=shop&q=Ryzen+5+5500+prix"},
-    {"nom": "AMD Ryzen 5 5600X", "prix": 140, "url": "https://www.google.com/search?tbm=shop&q=Ryzen+5+5600X+prix"},
+    {"nom": "AMD Ryzen 5 5500", "prix": 95, "url": "https://www.google.com/search?tbm=shop&q=Ryzen+5+5500+prix"},
+    {"nom": "AMD Ryzen 5 5600X", "prix": 135, "url": "https://www.google.com/search?tbm=shop&q=Ryzen+5+5600X+prix"},
     {"nom": "AMD Ryzen 7 5700X3D", "prix": 210, "url": "https://www.google.com/search?tbm=shop&q=Ryzen+7+5700X3D+prix"},
+    {"nom": "AMD Ryzen 9 5950X", "prix": 360, "url": "https://www.google.com/search?tbm=shop&q=Ryzen+9+5950X+prix"},
     {"nom": "--- AM5 (DDR5) ---", "prix": 0, "url": "#"},
     {"nom": "AMD Ryzen 5 7600", "prix": 200, "url": "https://www.google.com/search?tbm=shop&q=Ryzen+5+7600+prix"},
     {"nom": "AMD Ryzen 7 7800X3D", "prix": 450, "url": "https://www.google.com/search?tbm=shop&q=Ryzen+7+7800X3D+prix"},
+    {"nom": "AMD Ryzen 9 9950X", "prix": 680, "url": "https://www.google.com/search?tbm=shop&q=Ryzen+9+9950X+prix"},
     {"nom": "--- INTEL (12/13/14e) ---", "prix": 0, "url": "#"},
+    {"nom": "Intel Core i3-12100F", "prix": 95, "url": "https://www.google.com/search?tbm=shop&q=i3-12100F+prix"},
     {"nom": "Intel Core i5-13600K", "prix": 310, "url": "https://www.google.com/search?tbm=shop&q=i5-13600K+prix"},
     {"nom": "Intel Core i7-14700K", "prix": 430, "url": "https://www.google.com/search?tbm=shop&q=i7-14700K+prix"},
+    {"nom": "Intel Core i9-14900K", "prix": 620, "url": "https://www.google.com/search?tbm=shop&q=i9-14900K+prix"},
     {"nom": "--- INTEL ULTRA (200S) ---", "prix": 0, "url": "#"},
-    {"nom": "Intel Core Ultra 7 265K", "prix": 460, "url": "https://www.google.com/search?tbm=shop&q=Core+Ultra+7+265K+prix"}
+    {"nom": "Intel Core Ultra 5 245K", "prix": 330, "url": "https://www.google.com/search?tbm=shop&q=Core+Ultra+5+245K+prix"},
+    {"nom": "Intel Core Ultra 9 285K", "prix": 670, "url": "https://www.google.com/search?tbm=shop&q=Core+Ultra+9+285K+prix"}
   ],
   "cartes_meres": [
-    {"nom": "MSI B550M PRO-VDH (AM4)", "prix": 110, "url": "https://www.google.com/search?tbm=shop&q=MSI+B550M+PRO-VDH+prix"},
-    {"nom": "ASUS TUF B650-PLUS (AM5)", "prix": 200, "url": "https://www.google.com/search?tbm=shop&q=ASUS+TUF+B650-PLUS+prix"},
-    {"nom": "MSI Z790 TOMAHAWK (Intel)", "prix": 260, "url": "https://www.google.com/search?tbm=shop&q=MSI+Z790+TOMAHAWK+prix"}
+    {"nom": "--- AM4 ---", "prix": 0, "url": "#"},
+    {"nom": "GIGABYTE B550M DS3H", "prix": 90, "url": "https://www.google.com/search?tbm=shop&q=B550M+DS3H+prix"},
+    {"nom": "MSI MPG B550 GAMING PLUS", "prix": 130, "url": "https://www.google.com/search?tbm=shop&q=B550+GAMING+PLUS+prix"},
+    {"nom": "--- AM5 ---", "prix": 0, "url": "#"},
+    {"nom": "ASUS TUF B650-PLUS WIFI", "prix": 190, "url": "https://www.google.com/search?tbm=shop&q=TUF+B650-PLUS+prix"},
+    {"nom": "MSI MAG B650 TOMAHAWK", "prix": 210, "url": "https://www.google.com/search?tbm=shop&q=B650+TOMAHAWK+prix"},
+    {"nom": "ROG STRIX X670E-F GAMING", "prix": 420, "url": "https://www.google.com/search?tbm=shop&q=STRIX+X670E-F+prix"},
+    {"nom": "--- INTEL LGA1700 ---", "prix": 0, "url": "#"},
+    {"nom": "ASUS PRIME B760-PLUS", "prix": 150, "url": "https://www.google.com/search?tbm=shop&q=PRIME+B760-PLUS+prix"},
+    {"nom": "MSI MPG Z790 EDGE WIFI", "prix": 360, "url": "https://www.google.com/search?tbm=shop&q=Z790+EDGE+WIFI+prix"}
   ],
   "cartes_graphiques": [
-    {"nom": "NVIDIA RTX 4060", "prix": 300, "url": "https://www.google.com/search?tbm=shop&q=RTX+4060+prix"},
-    {"nom": "NVIDIA RTX 4070 Super", "prix": 640, "url": "https://www.google.com/search?tbm=shop&q=RTX+4070+Super+prix"},
-    {"nom": "NVIDIA RTX 4080 Super", "prix": 1050, "url": "https://www.google.com/search?tbm=shop&q=RTX+4080+Super+prix"},
-    {"nom": "NVIDIA RTX 4090", "prix": 2000, "url": "https://www.google.com/search?tbm=shop&q=RTX+4090+prix"}
-  ],
-  "refroidissement": [
-    {"nom": "Ventirad Be Quiet! Pure Rock 2", "prix": 45, "url": "https://www.google.com/search?tbm=shop&q=Pure+Rock+2+prix"},
-    {"nom": "AIO Arctic Liquid Freezer III 360", "prix": 110, "url": "https://www.google.com/search?tbm=shop&q=Liquid+Freezer+III+360+prix"},
-    {"nom": "AIO NZXT Kraken Elite 360", "prix": 280, "url": "https://www.google.com/search?tbm=shop&q=Kraken+Elite+360+prix"}
+    {"nom": "--- NVIDIA RTX ---", "prix": 0, "url": "#"},
+    {"nom": "RTX 4060 (MSI Ventus)", "prix": 310, "url": "https://www.google.com/search?tbm=shop&q=RTX+4060+prix"},
+    {"nom": "RTX 4070 Super (ASUS Dual)", "prix": 650, "url": "https://www.google.com/search?tbm=shop&q=RTX+4070+Super+prix"},
+    {"nom": "RTX 4080 Super (ROG Strix)", "prix": 1200, "url": "https://www.google.com/search?tbm=shop&q=RTX+4080+Super+Strix+prix"},
+    {"nom": "RTX 4090 (Founders/Custom)", "prix": 2100, "url": "https://www.google.com/search?tbm=shop&q=RTX+4090+prix"},
+    {"nom": "--- AMD RADEON ---", "prix": 0, "url": "#"},
+    {"nom": "RX 7600 (Sapphire Pulse)", "prix": 280, "url": "https://www.google.com/search?tbm=shop&q=RX+7600+Sapphire+prix"},
+    {"nom": "RX 7800 XT (PowerColor Hellhound)", "prix": 520, "url": "https://www.google.com/search?tbm=shop&q=RX+7800+XT+prix"},
+    {"nom": "RX 7900 XTX (ASRock Taichi)", "prix": 1050, "url": "https://www.google.com/search?tbm=shop&q=RX+7900+XTX+prix"}
   ],
   "memoire_ram": [
-    {"nom": "16Go DDR4 3200MHz", "prix": 50, "url": "https://www.google.com/search?tbm=shop&q=16Go+DDR4+3200MHz+prix"},
-    {"nom": "32Go DDR5 6000MHz", "prix": 130, "url": "https://www.google.com/search?tbm=shop&q=32Go+DDR5+6000MHz+prix"}
+    {"nom": "--- DDR4 ---", "prix": 0, "url": "#"},
+    {"nom": "16Go Corsair Vengeance LPX 3200", "prix": 45, "url": "https://www.google.com/search?tbm=shop&q=Corsair+Vengeance+DDR4+16Go+prix"},
+    {"nom": "32Go G.Skill Ripjaws V 3600", "prix": 85, "url": "https://www.google.com/search?tbm=shop&q=Ripjaws+V+32Go+3600+prix"},
+    {"nom": "--- DDR5 ---", "prix": 0, "url": "#"},
+    {"nom": "32Go Corsair Vengeance RGB 6000", "prix": 135, "url": "https://www.google.com/search?tbm=shop&q=Corsair+Vengeance+DDR5+32Go+6000+prix"},
+    {"nom": "64Go G.Skill Trident Z5 6400", "prix": 260, "url": "https://www.google.com/search?tbm=shop&q=Trident+Z5+64Go+prix"}
+  ],
+  "refroidissement": [
+    {"nom": "--- VENTIRAD ---", "prix": 0, "url": "#"},
+    {"nom": "Be Quiet! Pure Rock 2", "prix": 40, "url": "https://www.google.com/search?tbm=shop&q=Pure+Rock+2+prix"},
+    {"nom": "Thermalright Peerless Assassin 120", "prix": 45, "url": "https://www.google.com/search?tbm=shop&q=Peerless+Assassin+120+prix"},
+    {"nom": "Noctua NH-D15 chromax.black", "prix": 115, "url": "https://www.google.com/search?tbm=shop&q=NH-D15+chromax+prix"},
+    {"nom": "--- AIO (WATER) ---", "prix": 0, "url": "#"},
+    {"nom": "Arctic Liquid Freezer III 240", "prix": 85, "url": "https://www.google.com/search?tbm=shop&q=Liquid+Freezer+III+240+prix"},
+    {"nom": "Corsair iCUE H150i Elite", "prix": 190, "url": "https://www.google.com/search?tbm=shop&q=H150i+Elite+prix"},
+    {"nom": "NZXT Kraken Elite 360 RGB", "prix": 290, "url": "https://www.google.com/search?tbm=shop&q=Kraken+Elite+360+prix"}
   ],
   "alimentation": [
-    {"nom": "650W Bronze", "prix": 65, "url": "https://www.google.com/search?tbm=shop&q=alimentation+650W+prix"},
-    {"nom": "850W Gold Modular", "prix": 140, "url": "https://www.google.com/search?tbm=shop&q=alimentation+850W+Gold+prix"},
-    {"nom": "1000W Platinum", "prix": 220, "url": "https://www.google.com/search?tbm=shop&q=alimentation+1000W+prix"}
+    {"nom": "--- BUDGET ---", "prix": 0, "url": "#"},
+    {"nom": "MSI MAG A650BN (650W)", "prix": 60, "url": "https://www.google.com/search?tbm=shop&q=MAG+A650BN+prix"},
+    {"nom": "--- PREMIUM ---", "prix": 0, "url": "#"},
+    {"nom": "Corsair RM750e Gold", "prix": 110, "url": "https://www.google.com/search?tbm=shop&q=Corsair+RM750e+prix"},
+    {"nom": "Seasonic Focus GX-850", "prix": 140, "url": "https://www.google.com/search?tbm=shop&q=Seasonic+Focus+GX-850+prix"},
+    {"nom": "Be Quiet! Straight Power 12 1000W", "prix": 200, "url": "https://www.google.com/search?tbm=shop&q=Straight+Power+12+1000W+prix"}
+  ],
+  "stockage_ssd": [
+    {"nom": "1To Crucial P3 Plus (Gen4)", "prix": 75, "url": "https://www.google.com/search?tbm=shop&q=Crucial+P3+Plus+1To+prix"},
+    {"nom": "2To Samsung 990 Pro", "prix": 180, "url": "https://www.google.com/search?tbm=shop&q=Samsung+990+Pro+2To+prix"},
+    {"nom": "4To Lexar NM790", "prix": 270, "url": "https://www.google.com/search?tbm=shop&q=Lexar+NM790+4To+prix"}
+  ],
+  "boitier": [
+    {"nom": "DeepCool CC560 (Budget)", "prix": 65, "url": "https://www.google.com/search?tbm=shop&q=DeepCool+CC560+prix"},
+    {"nom": "NZXT H5 Flow", "prix": 95, "url": "https://www.google.com/search?tbm=shop&q=NZXT+H5+Flow+prix"},
+    {"nom": "Corsair 4000D Airflow", "prix": 105, "url": "https://www.google.com/search?tbm=shop&q=Corsair+4000D+Airflow+prix"},
+    {"nom": "Lian Li O11 Dynamic EVO", "prix": 180, "url": "https://www.google.com/search?tbm=shop&q=O11+Dynamic+EVO+prix"},
+    {"nom": "Hyte Y70 Touch", "prix": 400, "url": "https://www.google.com/search?tbm=shop&q=Hyte+Y70+Touch+prix"}
   ],
   "base_pc": {
-    "nom": "Stockage & Boitier",
-    "prix": 150
+    "nom": "Montage et câblage",
+    "prix": 50
   }
 }
