@@ -7,192 +7,55 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         :root {
-            --primary: #8DE4AF; /* Vert Sauge Doux (Aérien) */
-            --gold: #E6C200;    /* Or Doux (Rayon de soleil) */
-            --bg: #1A1F1C;      /* Gris de forêt brumeuse */
-            --card: #242B27;    /* Vert de gris profond */
-            --text: #F0F5F2;    /* Blanc cassé / Brume */
-            --accent: #3A473F;  /* Écorce mouillée */
-
-            /* Couleurs des logos pour l'effet */
-            --instagram-color: #E4405F;
-            --discord-color: #7289DA;
-            --youtube-color: #FF0000;
+            --primary: #8DE4AF; --gold: #E6C200; --bg: #1A1F1C;
+            --card: #242B27; --text: #F0F5F2; --accent: #3A473F;
+            --instagram-color: #E4405F; --discord-color: #7289DA; --youtube-color: #FF0000;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg);
+            font-family: 'Segoe UI', sans-serif; background-color: var(--bg);
             background-image: linear-gradient(135deg, #1A1F1C 0%, #2D3631 100%);
-            color: var(--text);
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-            min-height: 100vh;
+            color: var(--text); margin: 0; padding: 20px; display: flex; justify-content: center; min-height: 100vh;
         }
 
         .container {
-            width: 100%;
-            max-width: 850px;
-            background: var(--card);
-            padding: 40px;
-            border-radius: 30px;
-            border: 1px solid var(--accent);
-            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.4);
-            position: relative; /* Pour positionner les icônes */
+            width: 100%; max-width: 850px; background: var(--card); padding: 40px;
+            border-radius: 30px; border: 1px solid var(--accent); box-shadow: 0 10px 50px rgba(0, 0, 0, 0.4);
+            position: relative; padding-bottom: 80px;
         }
 
-        h1 {
-            text-align: center;
-            color: var(--primary);
-            text-shadow: 0 4px 10px rgba(141, 228, 175, 0.2);
-            margin-bottom: 10px;
-            font-weight: 300;
-            letter-spacing: 2px;
-        }
+        h1 { text-align: center; color: var(--primary); text-shadow: 0 4px 10px rgba(141, 228, 175, 0.2); margin-bottom: 10px; font-weight: 300; letter-spacing: 2px; }
+        .subtitle { text-align: center; color: var(--gold); font-size: 0.85rem; margin-bottom: 40px; opacity: 0.7; font-style: italic; letter-spacing: 3px; text-transform: uppercase; }
+        
+        .section { margin-bottom: 25px; }
+        label { display: block; margin-bottom: 12px; color: var(--primary); font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; opacity: 0.8; }
+        
+        .input-group { display: flex; gap: 15px; align-items: center; }
+        select { flex: 1; padding: 14px; border-radius: 12px; border: 1px solid var(--accent); background: rgba(255, 255, 255, 0.05); color: var(--text); font-size: 15px; cursor: pointer; transition: 0.3s; outline: none; }
+        select:hover { border-color: var(--primary); background: rgba(255, 255, 255, 0.08); }
 
-        .subtitle {
-            text-align: center;
-            color: var(--gold);
-            font-size: 0.85rem;
-            margin-bottom: 40px;
-            opacity: 0.7;
-            font-style: italic;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-        }
+        .btn-search { text-decoration: none; background: var(--gold); color: #242B27; width: 52px; height: 52px; display: none; align-items: center; justify-content: center; border-radius: 15px; font-size: 20px; transition: 0.4s; }
+        .btn-search:hover { transform: translateY(-5px); box-shadow: 0 5px 15px rgba(230, 194, 0, 0.4); }
 
-        .section {
-            margin-bottom: 25px;
-        }
+        .total-container { margin-top: 40px; padding: 35px; background: rgba(141, 228, 175, 0.05); border: 1px dashed var(--primary); border-radius: 20px; text-align: center; }
+        #prix-total { font-size: 50px; font-weight: 200; color: var(--primary); }
 
-        label {
-            display: block;
-            margin-bottom: 12px;
-            color: var(--primary);
-            font-size: 12px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            opacity: 0.8;
+        /* Bouton Partager */
+        .share-box { text-align: center; margin-top: 20px; }
+        .btn-share { 
+            background: transparent; border: 1px solid var(--gold); color: var(--gold); padding: 10px 20px; 
+            border-radius: 50px; cursor: pointer; font-size: 0.9rem; transition: 0.3s; display: none;
         }
+        .btn-share:hover { background: var(--gold); color: black; }
 
-        .input-group {
-            display: flex;
-            gap: 15px;
-            align-items: center;
-        }
-
-        select {
-            flex: 1;
-            padding: 14px;
-            border-radius: 12px;
-            border: 1px solid var(--accent);
-            background: rgba(255, 255, 255, 0.05);
-            color: var(--text);
-            font-size: 15px;
-            cursor: pointer;
-            transition: 0.3s ease;
-            outline: none;
-        }
-
-        select:hover {
-            border-color: var(--primary);
-            background: rgba(255, 255, 255, 0.08);
-        }
-
-        .btn-search {
-            text-decoration: none;
-            background: var(--gold);
-            color: #242B27;
-            width: 52px;
-            height: 52px;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            border-radius: 15px;
-            font-size: 20px;
-            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        .btn-search:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(230, 194, 0, 0.4);
-            filter: brightness(1.1);
-        }
-
-        .total-container {
-            margin-top: 40px;
-            padding: 35px;
-            background: rgba(141, 228, 175, 0.05);
-            border: 1px dashed var(--primary);
-            border-radius: 20px;
-            text-align: center;
-        }
-
-        .total-label {
-            font-size: 13px;
-            color: var(--gold);
-            margin-bottom: 10px;
-            letter-spacing: 4px;
-        }
-
-        #prix-total {
-            font-size: 50px;
-            font-weight: 200;
-            color: var(--primary);
-        }
-
-        .info-footer {
-            text-align: center;
-            font-size: 11px;
-            color: var(--accent);
-            margin-top: 30px;
-            letter-spacing: 1px;
-        }
-
-        /* Styles pour les icônes de réseaux sociaux */
-        .social-links {
-            position: absolute;
-            bottom: 20px;
-            right: 20px;
-            display: flex;
-            gap: 15px;
-            z-index: 10;
-        }
-
-        .social-link {
-            font-size: 24px;
-            color: #ccc; /* Couleur de base en niveaux de gris */
-            transition: all 0.3s ease-in-out;
-            filter: grayscale(100%) opacity(0.6); /* Démarre en niveaux de gris et un peu transparent */
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        /* Animation au survol */
-        .social-link:hover {
-            filter: grayscale(0%) opacity(1); /* Reviens en couleur */
-            transform: scale(1.2); /* Zoom léger */
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.6); /* Légère lueur */
-        }
-
-        /* Couleurs spécifiques au survol pour les icônes */
+        .social-links { position: absolute; bottom: 25px; right: 25px; display: flex; gap: 15px; }
+        .social-link { font-size: 24px; color: #ccc; transition: 0.3s; filter: grayscale(100%) opacity(0.6); text-decoration: none; }
+        .social-link:hover { filter: grayscale(0%) opacity(1); transform: scale(1.2); }
         .social-link.instagram:hover { color: var(--instagram-color); }
         .social-link.discord:hover { color: var(--discord-color); }
         .social-link.youtube:hover { color: var(--youtube-color); }
 
-        /* Styles pour les options désactivées (titres de section) */
-        select option[disabled] {
-            color: var(--primary) !important;
-            font-weight: bold !important;
-            background-color: #2e3732 !important; /* Un fond légèrement différent pour les titres */
-            padding-left: 10px;
-            pointer-events: none; /* Empêche la sélection même si cliquable */
-        }
+        .info-footer { text-align: center; font-size: 11px; color: var(--accent); margin-top: 30px; }
     </style>
 </head>
 <body>
@@ -204,38 +67,38 @@
     <div id="config-form"></div>
 
     <div class="total-container">
-        <div class="total-label">BUTIN ESTIMÉ</div>
+        <div style="font-size: 13px; color: var(--gold); letter-spacing: 4px; margin-bottom: 10px;">BUTIN ESTIMÉ</div>
         <div><span id="prix-total">0</span> €</div>
     </div>
 
-    <p class="info-footer">Déniché avec soin dans les bois d'Idealo</p>
-
-    <div class="social-links">
-        <a href="https://www.instagram.com/farfatechs/" target="_blank" class="social-link instagram" title="Rejoins-nous sur Instagram">
-            <i class="fab fa-instagram"></i>
-        </a>
-        <a href="https://discord.gg/dj7ueSS9sh" target="_blank" class="social-link discord" title="Parle aux Farfadets sur Discord">
-            <i class="fab fa-discord"></i>
-        </a>
-        <a href="https://www.youtube.com/@Farfatech" target="_blank" class="social-link youtube" title="Découvre nos aventures sur YouTube">
-            <i class="fab fa-youtube"></i>
-        </a>
+    <div class="share-box">
+        <button id="btn-share" class="btn-share" onclick="partagerConfig()">
+            <i class="fas fa-share-nodes"></i> PARTAGER LE BUTIN
+        </button>
     </div>
 
+    <div class="social-links">
+        <a href="https://www.instagram.com/farfatechs/" target="_blank" class="social-link instagram"><i class="fab fa-instagram"></i></a>
+        <a href="https://discord.gg/dj7ueSS9sh" target="_blank" class="social-link discord"><i class="fab fa-discord"></i></a>
+        <a href="https://www.youtube.com/@Farfatech" target="_blank" class="social-link youtube"><i class="fab fa-youtube"></i></a>
+    </div>
 </div>
 
 <script>
     let prixBase = 0;
+    let dataComposants = {};
 
     async function chargerComposants() {
         try {
             const reponse = await fetch('composants.json');
-            const data = await reponse.json();
+            dataComposants = await reponse.json();
+            prixBase = dataComposants.base_pc ? dataComposants.base_pc.prix : 0;
             
-            prixBase = data.base_pc ? data.base_pc.prix : 0;
             const form = document.getElementById('config-form');
+            const urlParams = new URLSearchParams(window.location.search);
 
-            for (const key in data) {
+            let index = 0;
+            for (const key in dataComposants) {
                 if (key === "base_pc") continue;
 
                 const section = document.createElement('div');
@@ -245,18 +108,15 @@
 
                 const select = document.createElement('select');
                 select.className = 'composant-select';
+                select.id = `select-${index}`;
                 select.innerHTML = `<option value="0">-- ${key.replace(/_/g, ' ').toUpperCase()} --</option>`;
 
-                data[key].forEach(item => {
+                dataComposants[key].forEach((item, i) => {
                     const opt = document.createElement('option');
                     opt.value = item.prix;
+                    opt.dataset.index = i;
                     opt.innerText = item.nom + (item.prix > 0 ? ` (${item.prix}€)` : '');
-                    if (item.prix === 0) {
-                        opt.disabled = true;
-                        opt.style.color = 'var(--primary)'; // Utilise la variable CSS
-                        opt.style.fontWeight = 'bold';
-                        opt.style.backgroundColor = 'var(--card)'; // Utilise la variable CSS
-                    }
+                    if (item.prix === 0) { opt.disabled = true; opt.style.color = '#8DE4AF'; }
                     select.appendChild(opt);
                 });
 
@@ -264,50 +124,67 @@
                 btnSearch.innerHTML = '🔍';
                 btnSearch.className = 'btn-search';
                 btnSearch.target = '_blank';
-                btnSearch.title = "Dénicher le meilleur prix sur Idealo";
 
                 select.addEventListener('change', () => {
-                    const selectedText = select.options[select.selectedIndex].text;
-                    const nomNettoye = selectedText.split('(')[0].trim();
-
-                    if (select.value !== "0") {
-                        const query = encodeURIComponent(nomNettoye + " idealo");
-                        btnSearch.href = `https://www.google.com/search?q=${query}`;
-                        btnSearch.style.display = 'flex';
-                    } else {
-                        btnSearch.style.display = 'none';
-                    }
+                    updateUI(select, btnSearch);
                     calculerTotal();
                 });
+
+                // Appliquer la config si présente dans l'URL
+                const savedIndex = urlParams.get(`c${index}`);
+                if (savedIndex !== null) {
+                    select.selectedIndex = parseInt(savedIndex) + 1;
+                    setTimeout(() => updateUI(select, btnSearch), 100);
+                }
 
                 group.appendChild(select);
                 group.appendChild(btnSearch);
                 section.innerHTML = `<label>${key.replace(/_/g, ' ')}</label>`;
                 section.appendChild(group);
                 form.appendChild(section);
+                index++;
             }
             calculerTotal();
-        } catch (e) { console.error("Erreur de lecture du grimoire magique :", e); }
+        } catch (e) { console.error(e); }
+    }
+
+    function updateUI(select, btnSearch) {
+        const selectedText = select.options[select.selectedIndex].text;
+        const nomNettoye = selectedText.split('(')[0].trim();
+        if (select.value !== "0") {
+            btnSearch.href = `https://www.google.com/search?q=${encodeURIComponent(nomNettoye + " idealo")}`;
+            btnSearch.style.display = 'flex';
+        } else {
+            btnSearch.style.display = 'none';
+        }
     }
 
     function calculerTotal() {
-        let total = 0; // Commencer à 0 par défaut
-        let auMoinsUnElementSelectionne = false; // Pour savoir si un élément a été sélectionné
-
+        let total = 0;
+        let selectedCount = 0;
         document.querySelectorAll('.composant-select').forEach(s => {
-            const valeur = parseInt(s.value);
-            if (valeur > 0) { // On ajoute seulement les éléments qui ont un prix > 0
-                total += valeur;
-                auMoinsUnElementSelectionne = true;
+            if (parseInt(s.value) > 0) { total += parseInt(s.value); selectedCount++; }
+        });
+        if (selectedCount > 0) total += prixBase;
+        document.getElementById('prix-total').innerText = total;
+        document.getElementById('btn-share').style.display = selectedCount > 0 ? 'inline-block' : 'none';
+    }
+
+    function partagerConfig() {
+        const params = new URLSearchParams();
+        document.querySelectorAll('.composant-select').forEach((s, i) => {
+            if (s.selectedIndex > 0) {
+                params.set(`c${i}`, s.options[s.selectedIndex].dataset.index);
             }
         });
-
-        // N'ajouter le prix de base que si au moins un composant a été choisi
-        if (auMoinsUnElementSelectionne && prixBase > 0) {
-            total += prixBase;
-        }
-
-        document.getElementById('prix-total').innerText = total;
+        const fullUrl = window.location.origin + window.location.pathname + '?' + params.toString();
+        
+        navigator.clipboard.writeText(fullUrl).then(() => {
+            const btn = document.getElementById('btn-share');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = "✅ LIEN COPIÉ !";
+            setTimeout(() => { btn.innerHTML = originalText; }, 2000);
+        });
     }
 
     window.onload = chargerComposants;
