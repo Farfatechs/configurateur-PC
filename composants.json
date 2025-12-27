@@ -1,0 +1,40 @@
+{
+  "processeurs": [
+    {"nom": "--- AM4 (DDR4) ---", "prix": 0, "url": "#"},
+    {"nom": "AMD Ryzen 5 5500", "prix": 100, "url": "https://www.google.com/search?tbm=shop&q=Ryzen+5+5500+prix"},
+    {"nom": "AMD Ryzen 5 5600X", "prix": 140, "url": "https://www.google.com/search?tbm=shop&q=Ryzen+5+5600X+prix"},
+    {"nom": "AMD Ryzen 7 5700X3D", "prix": 210, "url": "https://www.google.com/search?tbm=shop&q=Ryzen+7+5700X3D+prix"},
+    {"nom": "AMD Ryzen 9 5950X", "prix": 350, "url": "https://www.google.com/search?tbm=shop&q=Ryzen+9+5950X+prix"},
+    
+    {"nom": "--- AM5 (DDR5) ---", "prix": 0, "url": "#"},
+    {"nom": "AMD Ryzen 5 7600", "prix": 200, "url": "https://www.google.com/search?tbm=shop&q=Ryzen+5+7600+prix"},
+    {"nom": "AMD Ryzen 7 7800X3D", "prix": 450, "url": "https://www.google.com/search?tbm=shop&q=Ryzen+7+7800X3D+prix"},
+    {"nom": "AMD Ryzen 7 9800X3D", "prix": 520, "url": "https://www.google.com/search?tbm=shop&q=Ryzen+7+9800X3D+prix"},
+    {"nom": "AMD Ryzen 9 9950X", "prix": 680, "url": "https://www.google.com/search?tbm=shop&q=Ryzen+9+9950X+prix"},
+
+    {"nom": "--- INTEL (12e/13e/14e) ---", "prix": 0, "url": "#"},
+    {"nom": "Intel Core i3-12100", "prix": 110, "url": "https://www.google.com/search?tbm=shop&q=i3-12100+prix"},
+    {"nom": "Intel Core i5-13600K", "prix": 310, "url": "https://www.google.com/search?tbm=shop&q=i5-13600K+prix"},
+    {"nom": "Intel Core i7-14700K", "prix": 430, "url": "https://www.google.com/search?tbm=shop&q=i7-14700K+prix"},
+    {"nom": "Intel Core i9-14900K", "prix": 620, "url": "https://www.google.com/search?tbm=shop&q=i9-14900K+prix"},
+
+    {"nom": "--- INTEL ULTRA (Série 200S) ---", "prix": 0, "url": "#"},
+    {"nom": "Intel Core Ultra 5 245K", "prix": 330, "url": "https://www.google.com/search?tbm=shop&q=Core+Ultra+5+245K+prix"},
+    {"nom": "Intel Core Ultra 7 265K", "prix": 460, "url": "https://www.google.com/search?tbm=shop&q=Core+Ultra+7+265K+prix"},
+    {"nom": "Intel Core Ultra 9 285K", "prix": 670, "url": "https://www.google.com/search?tbm=shop&q=Core+Ultra+9+285K+prix"}
+  ],
+  "cartes_graphiques": [
+    {"nom": "--- NVIDIA RTX ---", "prix": 0, "url": "#"},
+    {"nom": "NVIDIA RTX 4060", "prix": 300, "url": "https://www.google.com/search?tbm=shop&q=RTX+4060+prix"},
+    {"nom": "NVIDIA RTX 4070 Super", "prix": 640, "url": "https://www.google.com/search?tbm=shop&q=RTX+4070+Super+prix"},
+    {"nom": "NVIDIA RTX 5080 (News)", "prix": 1200, "url": "https://www.google.com/search?tbm=shop&q=RTX+5080+prix"},
+    
+    {"nom": "--- AMD RADEON ---", "prix": 0, "url": "#"},
+    {"nom": "AMD Radeon RX 7800 XT", "prix": 510, "url": "https://www.google.com/search?tbm=shop&q=RX+7800+XT+prix"},
+    {"nom": "AMD Radeon RX 7900 XTX", "prix": 980, "url": "https://www.google.com/search?tbm=shop&q=RX+7900+XTX+prix"}
+  ],
+  "base_pc": {
+    "nom": "RAM, SSD, Boitier, Alim",
+    "prix": 450
+  }
+}
