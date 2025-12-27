@@ -79,6 +79,8 @@
   ],
   "boitiers": [
     {"nom": "NZXT H5 Flow", "prix": 95},
+    {"nom": "Phantef XT pro ultra", "prix": 95},
+    {"nom": "fractal design pop air xl", "prix": 110},
     {"nom": "Corsair 4000D Airflow", "prix": 105},
     {"nom": "Lian Li O11 Dynamic EVO", "prix": 185},
     {"nom": "Hyte Y70 Touch", "prix": 400}
