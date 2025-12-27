@@ -6,18 +6,18 @@
     <title>Le Comptoir du Farfadet Geek</title>
     <style>
         :root {
-            --primary: #48FF7B; /* Vert Néon Magique */
-            --gold: #FFD700;    /* Or du Farfadet */
-            --bg: #0D110D;      /* Fond Forêt Sombre */
-            --card: #1A221A;    /* Écorce / Circuit */
-            --text: #E0E0E0;
-            --accent: #2d442d;
+            --primary: #8DE4AF; /* Vert Sauge Doux (Aérien) */
+            --gold: #E6C200;    /* Or Doux (Rayon de soleil) */
+            --bg: #1A1F1C;      /* Gris de forêt brumeuse */
+            --card: #242B27;    /* Vert de gris profond */
+            --text: #F0F5F2;    /* Blanc cassé / Brume */
+            --accent: #3A473F;  /* Écorce mouillée */
         }
 
         body {
-            font-family: 'Courier New', Courier, monospace;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: var(--bg);
-            background-image: radial-gradient(circle at 50% 50%, #1a3a1a 0%, #0d110d 100%);
+            background-image: linear-gradient(135deg, #1A1F1C 0%, #2D3631 100%);
             color: var(--text);
             margin: 0;
             padding: 20px;
@@ -31,29 +31,29 @@
             max-width: 850px;
             background: var(--card);
             padding: 40px;
-            border-radius: 25px;
-            border: 2px solid var(--accent);
-            box-shadow: 0 0 30px rgba(72, 255, 123, 0.1);
+            border-radius: 30px;
+            border: 1px solid var(--accent);
+            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.4);
         }
 
         h1 {
             text-align: center;
             color: var(--primary);
-            text-shadow: 0 0 15px rgba(72, 255, 123, 0.6);
-            margin-bottom: 40px;
-            font-size: 2.2rem;
+            text-shadow: 0 4px 10px rgba(141, 228, 175, 0.2);
+            margin-bottom: 10px;
+            font-weight: 300;
+            letter-spacing: 2px;
         }
 
         .subtitle {
             text-align: center;
             color: var(--gold);
-            font-size: 0.9rem;
-            margin-top: -35px;
-            margin-bottom: 45px;
-            opacity: 0.9;
+            font-size: 0.85rem;
+            margin-bottom: 40px;
+            opacity: 0.7;
             font-style: italic;
-            letter-spacing: 1.5px;
-            text-shadow: 0 0 5px rgba(255, 215, 0, 0.3);
+            letter-spacing: 3px;
+            text-transform: uppercase;
         }
 
         .section {
@@ -62,12 +62,13 @@
 
         label {
             display: block;
-            margin-bottom: 10px;
-            color: var(--gold);
-            font-size: 14px;
-            font-weight: bold;
+            margin-bottom: 12px;
+            color: var(--primary);
+            font-size: 12px;
+            font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 1.5px;
+            opacity: 0.8;
         }
 
         .input-group {
@@ -79,91 +80,86 @@
         select {
             flex: 1;
             padding: 14px;
-            border-radius: 10px;
-            border: 1px solid var(--primary);
-            background: #080a08;
-            color: var(--primary);
-            font-size: 16px;
-            font-family: inherit;
+            border-radius: 12px;
+            border: 1px solid var(--accent);
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text);
+            font-size: 15px;
             cursor: pointer;
+            transition: 0.3s ease;
             outline: none;
-            transition: all 0.3s ease;
         }
 
         select:hover {
-            box-shadow: 0 0 15px rgba(72, 255, 123, 0.3);
-            border-color: var(--gold);
+            border-color: var(--primary);
+            background: rgba(255, 255, 255, 0.08);
         }
 
         .btn-search {
             text-decoration: none;
             background: var(--gold);
-            color: #000;
+            color: #242B27;
             width: 52px;
             height: 52px;
-            display: none; /* S'affiche quand un composant est choisi */
+            display: none;
             align-items: center;
             justify-content: center;
-            border-radius: 12px;
-            font-size: 22px;
-            transition: all 0.2s ease;
-            box-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
+            border-radius: 15px;
+            font-size: 20px;
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
         .btn-search:hover {
-            transform: scale(1.1) rotate(5deg);
-            background: #fff;
-            box-shadow: 0 0 25px rgba(255, 255, 255, 0.6);
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(230, 194, 0, 0.4);
+            filter: brightness(1.1);
         }
 
         .total-container {
             margin-top: 40px;
-            padding: 30px;
-            background: linear-gradient(135deg, #1a4a1a 0%, #000000 100%);
-            border: 2px solid var(--primary);
+            padding: 35px;
+            background: rgba(141, 228, 175, 0.05);
+            border: 1px dashed var(--primary);
             border-radius: 20px;
             text-align: center;
         }
 
         .total-label {
-            font-size: 16px;
-            font-weight: bold;
+            font-size: 13px;
             color: var(--gold);
             margin-bottom: 10px;
-            letter-spacing: 1px;
+            letter-spacing: 4px;
         }
 
         #prix-total {
-            font-size: 55px;
-            font-weight: 900;
+            font-size: 50px;
+            font-weight: 200;
             color: var(--primary);
-            text-shadow: 0 0 20px var(--primary);
         }
 
         .info-footer {
             text-align: center;
             font-size: 11px;
-            color: #556655;
-            margin-top: 25px;
-            font-style: italic;
+            color: var(--accent);
+            margin-top: 30px;
+            letter-spacing: 1px;
         }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h1>🍀 LE COMPTOIR DU FARFADET GEEK</h1>
+    <h1>🍀 LE COMPTOIR DU FARFADET</h1>
     <p class="subtitle">le plus malicieux du net</p>
     
-    <div id="config-form">
-        </div>
+    <div id="config-form"></div>
 
     <div class="total-container">
-        <div class="total-label">BUTIN TOTAL ESTIMÉ</div>
+        <div class="total-label">BUTIN ESTIMÉ</div>
         <div><span id="prix-total">0</span> €</div>
     </div>
 
-    <p class="info-footer">"Trouve la meilleure pépite grâce à la loupe d'or d'Idealo"</p>
+    <p class="info-footer">Déniché avec soin dans les bois d'Idealo</p>
 </div>
 
 <script>
@@ -182,26 +178,20 @@
 
                 const section = document.createElement('div');
                 section.className = 'section';
-
-                const label = document.createElement('label');
-                label.innerText = key.replace(/_/g, ' ');
-
                 const group = document.createElement('div');
                 group.className = 'input-group';
 
                 const select = document.createElement('select');
                 select.className = 'composant-select';
-                select.innerHTML = `<option value="0">-- Choisir ${label.innerText.toUpperCase()} --</option>`;
+                select.innerHTML = `<option value="0">-- ${key.replace(/_/g, ' ').toUpperCase()} --</option>`;
 
                 data[key].forEach(item => {
                     const opt = document.createElement('option');
                     opt.value = item.prix;
                     opt.innerText = item.nom + (item.prix > 0 ? ` (${item.prix}€)` : '');
-                    
                     if (item.prix === 0) {
                         opt.disabled = true;
-                        opt.style.color = '#48FF7B';
-                        opt.style.fontWeight = 'bold';
+                        opt.style.color = '#8DE4AF';
                     }
                     select.appendChild(opt);
                 });
@@ -210,14 +200,12 @@
                 btnSearch.innerHTML = '🔍';
                 btnSearch.className = 'btn-search';
                 btnSearch.target = '_blank';
-                btnSearch.title = "Dénicher le meilleur prix sur Idealo";
 
                 select.addEventListener('change', () => {
                     const selectedText = select.options[select.selectedIndex].text;
                     const nomNettoye = selectedText.split('(')[0].trim();
 
                     if (select.value !== "0") {
-                        // Génération du lien : Nom + idealo
                         const query = encodeURIComponent(nomNettoye + " idealo");
                         btnSearch.href = `https://www.google.com/search?q=${query}`;
                         btnSearch.style.display = 'flex';
@@ -229,14 +217,12 @@
 
                 group.appendChild(select);
                 group.appendChild(btnSearch);
-                section.appendChild(label);
+                section.innerHTML = `<label>${key.replace(/_/g, ' ')}</label>`;
                 section.appendChild(group);
                 form.appendChild(section);
             }
             calculerTotal();
-        } catch (e) {
-            console.error("Erreur de lecture du grimoire magique :", e);
-        }
+        } catch (e) { console.error(e); }
     }
 
     function calculerTotal() {
