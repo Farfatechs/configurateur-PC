@@ -6,16 +6,16 @@
     <title>Le Comptoir du Farfadet Geek</title>
     <style>
         :root {
-            --primary: #48FF7B; /* Vert Néon Magique */
-            --gold: #FFD700;    /* Or du Farfadet */
-            --bg: #0D110D;      /* Noir Forêt */
+            --primary: #48FF7B; /* Vert Néon */
+            --gold: #FFD700;    /* Or Magique */
+            --bg: #0D110D;      /* Fond Forêt Sombre */
             --card: #1A221A;    /* Écorce / Circuit */
             --text: #E0E0E0;
             --accent: #2d442d;
         }
 
         body {
-            font-family: 'Courier New', Courier, monospace; /* Style Terminal/Ancien */
+            font-family: 'Courier New', Courier, monospace;
             background-color: var(--bg);
             background-image: radial-gradient(circle at 50% 50%, #1a3a1a 0%, #0d110d 100%);
             color: var(--text);
@@ -34,27 +34,13 @@
             border-radius: 25px;
             border: 2px solid var(--accent);
             box-shadow: 0 0 30px rgba(72, 255, 123, 0.1);
-            position: relative;
-            overflow: hidden;
-        }
-
-        /* Décoration subtile rappelant des circuits ou de la mousse */
-        .container::before {
-            content: "🍀";
-            position: absolute;
-            top: 10px;
-            right: 15px;
-            font-size: 2rem;
-            opacity: 0.3;
         }
 
         h1 {
             text-align: center;
             color: var(--primary);
             text-shadow: 0 0 15px rgba(72, 255, 123, 0.6);
-            font-size: 2.2rem;
             margin-bottom: 40px;
-            letter-spacing: -1px;
         }
 
         .section {
@@ -87,18 +73,7 @@
             font-size: 16px;
             font-family: inherit;
             cursor: pointer;
-            transition: all 0.3s ease;
             outline: none;
-        }
-
-        select:hover {
-            box-shadow: 0 0 15px rgba(72, 255, 123, 0.3);
-            border-color: var(--gold);
-        }
-
-        select option {
-            background: var(--card);
-            color: var(--text);
         }
 
         .btn-search {
@@ -119,7 +94,6 @@
         .btn-search:hover {
             transform: scale(1.1) rotate(5deg);
             background: #fff;
-            box-shadow: 0 0 25px rgba(255, 255, 255, 0.6);
         }
 
         .total-container {
@@ -129,14 +103,6 @@
             border: 2px solid var(--primary);
             border-radius: 20px;
             text-align: center;
-            position: relative;
-        }
-
-        .total-label {
-            font-size: 16px;
-            font-weight: bold;
-            color: var(--gold);
-            margin-bottom: 10px;
         }
 
         #prix-total {
@@ -145,30 +111,17 @@
             color: var(--primary);
             text-shadow: 0 0 20px var(--primary);
         }
-
-        .info-footer {
-            text-align: center;
-            font-size: 11px;
-            color: #556655;
-            margin-top: 25px;
-            font-style: italic;
-        }
     </style>
 </head>
 <body>
 
 <div class="container">
     <h1>🍀 LE COMPTOIR DU FARFADET GEEK</h1>
-    
-    <div id="config-form">
-        </div>
-
+    <div id="config-form"></div>
     <div class="total-container">
-        <div class="total-label">BUTIN TOTAL ESTIMÉ</div>
+        <div style="color: var(--gold); font-weight: bold; margin-bottom: 10px;">BUTIN TOTAL ESTIMÉ</div>
         <div><span id="prix-total">0</span> €</div>
     </div>
-
-    <p class="info-footer">"Trouve la meilleure pépite grâce à la loupe d'or d'Idealo"</p>
 </div>
 
 <script>
@@ -187,16 +140,14 @@
 
                 const section = document.createElement('div');
                 section.className = 'section';
-
-                const label = document.createElement('label');
-                label.innerText = key.replace(/_/g, ' ');
+                const labelName = key.replace(/_/g, ' ').toUpperCase();
 
                 const group = document.createElement('div');
                 group.className = 'input-group';
 
                 const select = document.createElement('select');
                 select.className = 'composant-select';
-                select.innerHTML = `<option value="0">-- Choisir ${label.innerText} --</option>`;
+                select.innerHTML = `<option value="0">-- Choisir ${labelName} --</option>`;
 
                 data[key].forEach(item => {
                     const opt = document.createElement('option');
@@ -207,7 +158,6 @@
                         opt.disabled = true;
                         opt.style.color = '#48FF7B';
                         opt.style.fontWeight = 'bold';
-                        opt.style.fontSize = '0.9em';
                     }
                     select.appendChild(opt);
                 });
@@ -216,13 +166,17 @@
                 btnSearch.innerHTML = '🔍';
                 btnSearch.className = 'btn-search';
                 btnSearch.target = '_blank';
-                btnSearch.title = "Chercher le meilleur prix";
 
+                // LOGIQUE DE RECHERCHE DYNAMIQUE
                 select.addEventListener('change', () => {
-                    const selectedText = select.options[select.selectedIndex].text;
-                    const nomNettoye = selectedText.split('(')[0].trim();
+                    const selectedOption = select.options[select.selectedIndex];
+                    const fullText = selectedOption.text;
+                    
+                    // On extrait le nom sans le prix (ex: "AMD Ryzen 5 5500")
+                    const nomNettoye = fullText.split('(')[0].trim();
 
                     if (select.value !== "0") {
+                        // On crée le lien exact : Nom + idealo
                         const query = encodeURIComponent(nomNettoye + " idealo");
                         btnSearch.href = `https://www.google.com/search?q=${query}`;
                         btnSearch.style.display = 'flex';
@@ -234,13 +188,13 @@
 
                 group.appendChild(select);
                 group.appendChild(btnSearch);
-                section.appendChild(label);
+                section.innerHTML = `<label>${labelName}</label>`;
                 section.appendChild(group);
                 form.appendChild(section);
             }
             calculerTotal();
         } catch (e) {
-            console.error("Erreur de chargement du grimoire JSON:", e);
+            console.error("Erreur de grimoire :", e);
         }
     }
 
