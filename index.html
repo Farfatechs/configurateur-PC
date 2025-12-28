@@ -11,41 +11,42 @@
             --card: #242B27; --text: #F0F5F2; --accent: #3A473F;
         }
 
-        /* --- LE FIX ANDROID : On force tout à rester dans l'écran --- */
-        * { 
-            box-sizing: border-box; 
-            max-width: 100%; 
-        }
+        * { box-sizing: border-box; }
 
         body {
             font-family: 'Segoe UI', sans-serif; background-color: var(--bg);
             background-image: linear-gradient(135deg, #1A1F1C 0%, #2D3631 100%);
             color: var(--text); margin: 0; padding: 10px; display: flex; justify-content: center; min-height: 100vh;
-            overflow-x: hidden; /* Supprime le balancement gauche/droite sur Android */
+            overflow-x: hidden; 
         }
 
         .container {
-            width: 100%; max-width: 750px; background: var(--card); padding: 30px 15px;
+            width: 100%; max-width: 600px; background: var(--card); padding: 25px 15px;
             border-radius: 20px; border: 1px solid var(--accent); box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
             position: relative; padding-bottom: 110px;
         }
 
-        h1 { text-align: center; color: var(--primary); font-weight: 300; font-size: 1.3rem; margin: 10px 0; }
-        .subtitle { text-align: center; color: var(--gold); font-size: 0.7rem; margin-bottom: 30px; opacity: 0.7; font-style: italic; letter-spacing: 1px; }
+        h1 { text-align: center; color: var(--primary); font-weight: 300; font-size: 1.2rem; margin: 10px 0; }
+        .subtitle { text-align: center; color: var(--gold); font-size: 0.7rem; margin-bottom: 25px; opacity: 0.7; text-transform: uppercase; }
 
-        .section { margin-bottom: 20px; }
-        label { display: block; margin-bottom: 8px; color: var(--primary); font-size: 11px; font-weight: 600; text-transform: uppercase; }
+        .section { margin-bottom: 20px; width: 100%; }
+        label { display: block; margin-bottom: 8px; color: var(--primary); font-size: 10px; font-weight: 700; text-transform: uppercase; }
         
-        /* On empêche l'input-group de déborder */
         .input-group { 
-            display: flex; gap: 8px; align-items: center; width: 100%; 
+            display: flex; gap: 8px; align-items: center; width: 100%; overflow: hidden;
         }
 
+        /* --- LE FIX CRITIQUE POUR RAM/ALIM --- */
         select { 
-            flex: 1; min-width: 0; /* Empêche le select de pousser les murs sur Chrome */
+            flex: 1; 
+            min-width: 0; /* Force le select à respecter la largeur du parent */
+            width: 100%;
             padding: 12px; border-radius: 10px; border: 1px solid var(--accent); 
             background: #2D3631 !important; color: #FFFFFF !important;
-            font-size: 14px; cursor: pointer; outline: none; -webkit-appearance: none;
+            font-size: 14px; cursor: pointer; outline: none;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis; /* Ajoute "..." si le texte est trop long */
         }
 
         .btn-search { 
@@ -55,121 +56,100 @@
         }
 
         .total-container { margin-top: 30px; padding: 20px; background: rgba(141, 228, 175, 0.05); border: 1px dashed var(--primary); border-radius: 15px; text-align: center; }
-        #prix-total { font-size: 40px; font-weight: 200; color: var(--primary); }
-        .warning-text { font-size: 10px; color: var(--gold); opacity: 0.8; margin-top: 10px; text-transform: uppercase; }
+        #prix-total { font-size: 40px; color: var(--primary); }
+        .warning-text { font-size: 9px; color: var(--gold); opacity: 0.8; margin-top: 10px; }
 
-        .btn-share { background: var(--gold); border: none; color: #1A1C1C; padding: 15px; border-radius: 50px; cursor: pointer; font-weight: bold; width: 100%; margin-top: 20px; font-size: 14px; }
+        .btn-share { background: var(--gold); border: none; color: #1A1C1C; padding: 15px; border-radius: 50px; cursor: pointer; font-weight: bold; width: 100%; margin-top: 15px; font-size: 13px; }
 
-        .social-links { position: absolute; bottom: 20px; left: 0; right: 0; display: flex; justify-content: center; gap: 25px; }
-        .social-link { font-size: 22px; color: #ccc; opacity: 0.6; text-decoration: none; }
+        .social-links { position: absolute; bottom: 20px; left: 0; right: 0; display: flex; justify-content: center; gap: 20px; }
+        .social-link { font-size: 22px; color: #ccc; opacity: 0.5; }
 
-        /* Ajustements mobiles agressifs */
         @media (max-width: 480px) {
-            .container { padding: 20px 10px 100px 10px; }
-            h1 { font-size: 1.1rem; }
-            select { font-size: 13px; }
-            .btn-search { width: 40px; height: 40px; font-size: 16px; }
+            select { font-size: 12px; padding: 10px; }
+            .btn-search { width: 40px; height: 40px; }
         }
     </style>
 </head>
 <body>
-
-<div class="container">
-    <h1>🍀 LE COMPTOIR DU FARFADET</h1>
-    <p class="subtitle">le plus malicieux du net</p>
-    
-    <div id="config-form"></div>
-
-    <div class="total-container">
-        <div style="font-size: 11px; color: var(--gold); letter-spacing: 2px;">BUTIN ESTIMÉ</div>
-        <div><span id="prix-total">0</span> €</div>
-        <p class="warning-text">⚠️ Prix sujets à variation</p>
-        <button id="btn-share" class="btn-share" onclick="partagerConfig()" style="display:none;">
-            <i class="fas fa-share-nodes"></i> PARTAGER LE BUTIN
-        </button>
+    <div class="container">
+        <h1>🍀 LE COMPTOIR DU FARFADET</h1>
+        <p class="subtitle">le plus malicieux du net</p>
+        <div id="config-form"></div>
+        <div class="total-container">
+            <div style="font-size: 10px; color: var(--gold);">BUTIN ESTIMÉ</div>
+            <div><span id="prix-total">0</span> €</div>
+            <p class="warning-text">⚠️ Prix sujets à variation</p>
+            <button id="btn-share" class="btn-share" onclick="partagerConfig()" style="display:none;">PARTAGER LE BUTIN</button>
+        </div>
+        <div class="social-links">
+            <a href="https://www.instagram.com/farfatechs/" target="_blank" class="social-link"><i class="fab fa-instagram"></i></a>
+            <a href="https://discord.gg/dj7ueSS9sh" target="_blank" class="social-link"><i class="fab fa-discord"></i></a>
+            <a href="https://www.youtube.com/@Farfatech" target="_blank" class="social-link"><i class="fab fa-youtube"></i></a>
+        </div>
     </div>
 
-    <div class="social-links">
-        <a href="https://www.instagram.com/farfatechs/" target="_blank" class="social-link"><i class="fab fa-instagram"></i></a>
-        <a href="https://discord.gg/dj7ueSS9sh" target="_blank" class="social-link"><i class="fab fa-discord"></i></a>
-        <a href="https://www.youtube.com/@Farfatech" target="_blank" class="social-link"><i class="fab fa-youtube"></i></a>
-    </div>
-</div>
-
-<script>
-    let dataComposants = {};
-    let prixBase = 0;
-
-    async function chargerComposants() {
-        try {
-            const reponse = await fetch('composants.json');
-            dataComposants = await reponse.json();
-            prixBase = dataComposants.base_pc ? dataComposants.base_pc.prix : 0;
-            const form = document.getElementById('config-form');
-            const urlParams = new URLSearchParams(window.location.search);
-
-            let index = 0;
-            for (const key in dataComposants) {
-                if (key === "base_pc") continue;
-                const section = document.createElement('div');
-                section.className = 'section';
-                section.innerHTML = `
-                    <label>${key.replace(/_/g, ' ')}</label>
-                    <div class="input-group">
-                        <select class="composant-select" id="select-${index}" data-type="${key}" onchange="calculerTotal()">
-                            <option value="0" data-idx="-1">-- CHOISIR --</option>
-                            ${dataComposants[key].map((item, i) => {
-                                const isTitle = item.nom.startsWith('---');
-                                return `<option value="${item.prix}" data-idx="${i}" ${isTitle ? 'disabled' : ''}>
-                                    ${item.nom} ${(!isTitle && item.prix > 0) ? `(${item.prix}€)` : ''}
-                                </option>`;
-                            }).join('')}
-                        </select>
-                        <a class="btn-search" target="_blank">🔍</a>
-                    </div>
-                `;
-                form.appendChild(section);
-
-                const savedIndex = urlParams.get(`c${index}`);
-                if (savedIndex !== null) {
-                    document.getElementById(`select-${index}`).selectedIndex = parseInt(savedIndex) + 1;
+    <script>
+        // Utilise exactement le même script que dans ma réponse précédente
+        let dataComposants = {};
+        let prixBase = 0;
+        async function chargerComposants() {
+            try {
+                const reponse = await fetch('composants.json');
+                dataComposants = await reponse.json();
+                prixBase = dataComposants.base_pc ? dataComposants.base_pc.prix : 0;
+                const form = document.getElementById('config-form');
+                const urlParams = new URLSearchParams(window.location.search);
+                let index = 0;
+                for (const key in dataComposants) {
+                    if (key === "base_pc") continue;
+                    const section = document.createElement('div');
+                    section.className = 'section';
+                    section.innerHTML = `
+                        <label>${key.replace(/_/g, ' ')}</label>
+                        <div class="input-group">
+                            <select class="composant-select" id="select-${index}" data-type="${key}" onchange="calculerTotal()">
+                                <option value="0" data-idx="-1">-- CHOISIR --</option>
+                                ${dataComposants[key].map((item, i) => {
+                                    const isTitle = item.nom.startsWith('---');
+                                    return `<option value="${item.prix}" data-idx="${i}" ${isTitle ? 'disabled' : ''}>
+                                        ${item.nom} ${(!isTitle && item.prix > 0) ? `(${item.prix}€)` : ''}
+                                    </option>`;
+                                }).join('')}
+                            </select>
+                            <a class="btn-search" target="_blank">🔍</a>
+                        </div>`;
+                    form.appendChild(section);
+                    const savedIndex = urlParams.get(`c${index}`);
+                    if (savedIndex !== null) document.getElementById(`select-${index}`).selectedIndex = parseInt(savedIndex) + 1;
+                    index++;
                 }
-                index++;
-            }
-            calculerTotal();
-        } catch (e) { console.error(e); }
-    }
-
-    function calculerTotal() {
-        let total = 0; let count = 0;
-        document.querySelectorAll('.composant-select').forEach(s => {
-            const btn = s.parentElement.querySelector('.btn-search');
-            if (parseInt(s.value) > 0) {
-                total += parseInt(s.value);
-                count++;
-                const selectedText = s.options[s.selectedIndex].text.split('(')[0];
-                btn.href = `https://www.google.com/search?q=${encodeURIComponent(selectedText + " idealo")}`;
-                btn.style.display = 'flex';
-            } else {
-                btn.style.display = 'none';
-            }
-        });
-
-        if (count > 0) total += prixBase;
-        document.getElementById('prix-total').innerText = total;
-        document.getElementById('btn-share').style.display = count > 0 ? 'inline-block' : 'none';
-    }
-
-    function partagerConfig() {
-        const params = new URLSearchParams();
-        document.querySelectorAll('.composant-select').forEach((s, i) => {
-            if (s.selectedIndex > 0) params.set(`c${i}`, s.options[s.selectedIndex].dataset.idx);
-        });
-        const url = window.location.origin + window.location.pathname + '?' + params.toString();
-        navigator.clipboard.writeText(url).then(() => alert("Lien copié !"));
-    }
-
-    window.onload = chargerComposants;
-</script>
+                calculerTotal();
+            } catch (e) { console.error(e); }
+        }
+        function calculerTotal() {
+            let total = 0; let count = 0;
+            document.querySelectorAll('.composant-select').forEach(s => {
+                const btn = s.parentElement.querySelector('.btn-search');
+                if (parseInt(s.value) > 0) {
+                    total += parseInt(s.value); count++;
+                    const selectedText = s.options[s.selectedIndex].text.split('(')[0];
+                    btn.href = `https://www.google.com/search?q=${encodeURIComponent(selectedText + " idealo")}`;
+                    btn.style.display = 'flex';
+                } else btn.style.display = 'none';
+            });
+            if (count > 0) total += prixBase;
+            document.getElementById('prix-total').innerText = total;
+            document.getElementById('btn-share').style.display = count > 0 ? 'inline-block' : 'none';
+        }
+        function partagerConfig() {
+            const params = new URLSearchParams();
+            document.querySelectorAll('.composant-select').forEach((s, i) => {
+                if (s.selectedIndex > 0) params.set(`c${i}`, s.options[s.selectedIndex].dataset.idx);
+            });
+            const url = window.location.origin + window.location.pathname + '?' + params.toString();
+            navigator.clipboard.writeText(url).then(() => alert("Lien copié !"));
+        }
+        window.onload = chargerComposants;
+    </script>
 </body>
 </html>
