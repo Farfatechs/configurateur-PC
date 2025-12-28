@@ -2,101 +2,186 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Configurateur PC - Liste des Composants</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Le Comptoir du Farfadet</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
+        :root {
+            --primary: #8DE4AF; --gold: #E6C200; --bg: #1A1F1C;
+            --card: #242B27; --text: #F0F5F2; --accent: #3A473F;
+        }
+
+        * { box-sizing: border-box; }
+
         body {
-            background-color: #f4f4f9;
-            font-family: Arial, sans-serif;
-            padding: 20px;
+            font-family: 'Segoe UI', sans-serif; background-color: var(--bg);
+            background-image: linear-gradient(135deg, #1A1F1C 0%, #2D3631 100%);
+            color: var(--text); margin: 0; padding: 10px; display: flex; justify-content: center; min-height: 100vh;
+            overflow-x: hidden; 
         }
 
         .container {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 20px;
+            width: 100%; max-width: 600px; background: var(--card); padding: 25px 15px;
+            border-radius: 20px; border: 1px solid var(--accent); box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+            position: relative; padding-bottom: 110px;
         }
 
-        .card {
-            background: white;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            padding: 15px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            text-align: center;
+        h1 { text-align: center; color: var(--primary); font-weight: 300; font-size: 1.2rem; margin: 10px 0; }
+        .subtitle { text-align: center; color: var(--gold); font-size: 0.7rem; margin-bottom: 25px; opacity: 0.7; text-transform: uppercase; }
+
+        .section { margin-bottom: 20px; width: 100%; }
+        label { display: block; margin-bottom: 8px; color: var(--primary); font-size: 10px; font-weight: 700; text-transform: uppercase; }
+        
+        .input-group { 
+            display: flex; gap: 8px; align-items: center; width: 100%; overflow: hidden;
         }
 
-        .card h3 {
-            margin: 10px 0;
-            font-size: 1.1em;
+        select { 
+            flex: 1; min-width: 0; width: 100%;
+            padding: 12px; border-radius: 10px; border: 1px solid var(--accent); 
+            background: #2D3631 !important; color: #FFFFFF !important;
+            font-size: 14px; cursor: pointer; outline: none;
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
         }
 
-        .price {
-            color: #27ae60;
-            font-weight: bold;
-            font-size: 1.2em;
+        .btn-search { 
+            text-decoration: none; background: var(--gold); color: #242B27; 
+            width: 44px; height: 44px; display: none; align-items: center; 
+            justify-content: center; border-radius: 10px; font-size: 18px; flex-shrink: 0;
         }
 
-        .category-title {
-            grid-column: 1 / -1;
-            background: #2c3e50;
-            color: white;
-            padding: 10px;
-            margin-top: 20px;
-            border-radius: 5px;
+        .total-container { 
+            margin-top: 30px; padding: 20px; background: rgba(141, 228, 175, 0.05); 
+            border: 1px dashed var(--primary); border-radius: 15px; text-align: center; 
+        }
+        #prix-total { font-size: 40px; color: var(--primary); font-weight: bold; }
+        .warning-text { font-size: 9px; color: var(--gold); opacity: 0.8; margin-top: 10px; }
+
+        .btn-share { 
+            background: var(--gold); border: none; color: #1A1C1C; padding: 15px; 
+            border-radius: 50px; cursor: pointer; font-weight: bold; width: 100%; 
+            margin-top: 15px; font-size: 13px; 
+        }
+
+        /* --- ANIMATION DES LOGOS SOCIAUX --- */
+        .social-links { 
+            position: absolute; bottom: 20px; left: 0; right: 0; 
+            display: flex; justify-content: center; gap: 25px; 
+        }
+
+        .social-link { 
+            font-size: 24px; color: #ccc; opacity: 0.5; 
+            text-decoration: none;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+            display: inline-block;
+        }
+
+        /* Effet au survol */
+        .social-link:hover { 
+            opacity: 1; 
+            transform: translateY(-8px) scale(1.3); 
+        }
+
+        /* Couleurs au survol */
+        .social-link.insta:hover { color: #E1306C; filter: drop-shadow(0 0 8px rgba(225, 48, 108, 0.7)); }
+        .social-link.discord:hover { color: #5865F2; filter: drop-shadow(0 0 8px rgba(88, 101, 242, 0.7)); }
+        .social-link.youtube:hover { color: #FF0000; filter: drop-shadow(0 0 8px rgba(255, 0, 0, 0.7)); }
+
+        @media (max-width: 480px) {
+            select { font-size: 12px; padding: 10px; }
+            .btn-search { width: 40px; height: 40px; }
         }
     </style>
 </head>
 <body>
+    <div class="container">
+        <h1>🍀 LE COMPTOIR DU FARFADET</h1>
+        <p class="subtitle">le plus malicieux du net</p>
+        
+        <div id="config-form"></div>
+        
+        <div class="total-container">
+            <div style="font-size: 10px; color: var(--gold);">BUTIN ESTIMÉ</div>
+            <div><span id="prix-total">0</span> €</div>
+            <p class="warning-text">⚠️ Prix sujets à variation</p>
+            <button id="btn-share" class="btn-share" onclick="partagerConfig()" style="display:none;">PARTAGER LE BUTIN</button>
+        </div>
 
-    <h1>Mon Configurateur PC</h1>
-    <div id="pc-builder" class="container"></div>
+        <div class="social-links">
+            <a href="https://www.instagram.com/farfatechs/" target="_blank" class="social-link insta"><i class="fab fa-instagram"></i></a>
+            <a href="https://discord.gg/dj7ueSS9sh" target="_blank" class="social-link discord"><i class="fab fa-discord"></i></a>
+            <a href="https://www.youtube.com/@Farfatech" target="_blank" class="social-link youtube"><i class="fab fa-youtube"></i></a>
+        </div>
+    </div>
 
     <script>
-        // Ton JSON complet ici
-        const data = {
-            "processeurs": [
-                { "nom": "--- AMD RYZEN 9000 SERIES (AM5) ---", "prix": 0 },
-                { "nom": "Ryzen 9 9950X", "prix": 550 },
-                { "nom": "Ryzen 9 9900X", "prix": 450 }
-                // ... rajoute le reste de ton JSON ici
-            ],
-            "cartes_graphiques": [
-                { "nom": "NVIDIA RTX 5090", "prix": 2000 },
-                { "nom": "NVIDIA RTX 5080", "prix": 1200 }
-            ]
-        };
+        let dataComposants = {};
+        let prixBase = 0;
 
-        const container = document.getElementById('pc-builder');
+        async function chargerComposants() {
+            try {
+                const reponse = await fetch('composants.json');
+                dataComposants = await reponse.json();
+                prixBase = dataComposants.base_pc ? dataComposants.base_pc.prix : 0;
+                
+                const form = document.getElementById('config-form');
+                const urlParams = new URLSearchParams(window.location.search);
+                
+                let index = 0;
+                for (const key in dataComposants) {
+                    if (key === "base_pc") continue;
+                    const section = document.createElement('div');
+                    section.className = 'section';
+                    section.innerHTML = `
+                        <label>${key.replace(/_/g, ' ')}</label>
+                        <div class="input-group">
+                            <select class="composant-select" id="select-${index}" data-type="${key}" onchange="calculerTotal()">
+                                <option value="0" data-idx="-1">-- CHOISIR --</option>
+                                ${dataComposants[key].map((item, i) => {
+                                    const isTitle = item.nom.startsWith('---');
+                                    return `<option value="${item.prix}" data-idx="${i}" ${isTitle ? 'disabled' : ''}>
+                                        ${item.nom} ${(!isTitle && item.prix > 0) ? `(${item.prix}€)` : ''}
+                                    </option>`;
+                                }).join('')}
+                            </select>
+                            <a class="btn-search" target="_blank">🔍</a>
+                        </div>`;
+                    form.appendChild(section);
 
-        // Fonction pour générer l'affichage
-        function renderComponents(categoryName, components) {
-            // Création du titre de la catégorie
-            const title = document.createElement('div');
-            title.className = 'category-title';
-            title.innerText = categoryName.replace('_', ' ').toUpperCase();
-            container.appendChild(title);
+                    const savedIndex = urlParams.get(`c${index}`);
+                    if (savedIndex !== null) document.getElementById(`select-${index}`).selectedIndex = parseInt(savedIndex) + 1;
+                    index++;
+                }
+                calculerTotal();
+            } catch (e) { console.error(e); }
+        }
 
-            // Création des cartes
-            components.forEach(item => {
-                if(item.prix === 0) return; // Ignore les séparateurs de catégorie internes
-
-                const card = document.createElement('div');
-                card.className = 'card';
-                card.innerHTML = `
-                    <h3>${item.nom}</h3>
-                    <p class="price">${item.prix} €</p>
-                    <button>Ajouter au panier</button>
-                `;
-                container.appendChild(card);
+        function calculerTotal() {
+            let total = 0; let count = 0;
+            document.querySelectorAll('.composant-select').forEach(s => {
+                const btn = s.parentElement.querySelector('.btn-search');
+                if (parseInt(s.value) > 0) {
+                    total += parseInt(s.value); count++;
+                    const selectedText = s.options[s.selectedIndex].text.split('(')[0];
+                    btn.href = `https://www.google.com/search?q=${encodeURIComponent(selectedText + " idealo")}`;
+                    btn.style.display = 'flex';
+                } else btn.style.display = 'none';
             });
+            if (count > 0) total += prixBase;
+            document.getElementById('prix-total').innerText = total;
+            document.getElementById('btn-share').style.display = count > 0 ? 'inline-block' : 'none';
         }
 
-        // Boucle sur toutes les catégories du JSON
-        for (const category in data) {
-            if (Array.isArray(data[category])) {
-                renderComponents(category, data[category]);
-            }
+        function partagerConfig() {
+            const params = new URLSearchParams();
+            document.querySelectorAll('.composant-select').forEach((s, i) => {
+                if (s.selectedIndex > 0) params.set(`c${i}`, s.options[s.selectedIndex].dataset.idx);
+            });
+            const url = window.location.origin + window.location.pathname + '?' + params.toString();
+            navigator.clipboard.writeText(url).then(() => alert("Butin copié ! Partage-le vite !"));
         }
+
+        window.onload = chargerComposants;
     </script>
 </body>
 </html>
