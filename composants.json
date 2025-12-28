@@ -44,6 +44,7 @@
   ],
   "cartes_meres": [
     { "nom": "--- AM5 (AMD RYZEN 7000/9000) ---", "prix": 0 },
+    { "nom": "Asus ROG STRIX B650-A GAMING WIFI ATX AM5", "prix": 480, "socket": "AM5", "ram": "DDR5" },
     { "nom": "ASUS ROG STRIX X870-E GAMING WIFI", "prix": 480, "socket": "AM5", "ram": "DDR5" },
     { "nom": "MSI MPG B650 CARBON WIFI", "prix": 250, "socket": "AM5", "ram": "DDR5" },
     { "nom": "GIGABYTE B650 AORUS ELITE AX", "prix": 200, "socket": "AM5", "ram": "DDR5" },
