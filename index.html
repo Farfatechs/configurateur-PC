@@ -18,57 +18,46 @@
         }
 
         .container {
-            width: 100%; max-width: 850px; background: var(--card); padding: 40px;
-            border-radius: 30px; border: 1px solid var(--accent); box-shadow: 0 10px 50px rgba(0, 0, 0, 0.4);
-            position: relative; padding-bottom: 120px;
+            width: 100%; max-width: 600px; background: var(--card); padding: 40px;
+            border-radius: 30px; border: 1px solid var(--accent); box-shadow: 0 10px 50px rgba(0,0,0,0.4);
+            position: relative; padding-bottom: 100px;
         }
 
-        h1 { text-align: center; color: var(--primary); font-weight: 300; letter-spacing: 2px; margin-bottom: 5px; }
-        .subtitle { text-align: center; color: var(--gold); font-size: 0.85rem; margin-bottom: 40px; opacity: 0.7; font-style: italic; letter-spacing: 3px; text-transform: uppercase; }
+        h1 { text-align: center; color: var(--primary); font-weight: 300; letter-spacing: 2px; }
+        .subtitle { text-align: center; color: var(--gold); font-size: 0.8rem; margin-bottom: 30px; opacity: 0.7; letter-spacing: 2px; }
 
-        .section { margin-bottom: 25px; }
-        label { display: block; margin-bottom: 10px; color: var(--primary); font-size: 12px; font-weight: 600; text-transform: uppercase; }
+        .section { margin-bottom: 20px; }
+        label { display: block; margin-bottom: 8px; color: var(--primary); font-size: 11px; font-weight: 700; text-transform: uppercase; }
         
-        /* BARRE DE RECHERCHE */
-        .search-bar {
-            width: 100%; padding: 10px 15px; margin-bottom: 10px; border-radius: 10px;
-            border: 1px solid var(--accent); background: #1A1F1C; color: var(--primary);
-            font-size: 14px; outline: none; box-sizing: border-box; transition: 0.3s;
-        }
-        .search-bar:focus { border-color: var(--gold); box-shadow: 0 0 5px rgba(230, 194, 0, 0.3); }
-
         select { 
-            width: 100%; padding: 14px; border-radius: 12px; border: 1px solid var(--accent); 
-            background: #2D3631 !important; color: #FFFFFF !important;
-            font-size: 15px; cursor: pointer; outline: none; transition: 0.3s;
+            width: 100%; padding: 12px; border-radius: 10px; border: 1px solid var(--accent); 
+            background: #2D3631; color: white; font-size: 14px; outline: none;
         }
-        select:focus { border-color: var(--primary); }
 
-        select option:disabled { color: var(--gold) !important; font-weight: bold; background: #1A1F1C; }
+        select option:disabled { color: var(--gold); font-weight: bold; }
 
-        .total-container { margin-top: 40px; padding: 35px; background: rgba(141, 228, 175, 0.05); border: 1px dashed var(--primary); border-radius: 20px; text-align: center; }
-        .total-label { font-size: 13px; color: var(--gold); letter-spacing: 4px; margin-bottom: 10px; }
-        #prix-total { font-size: 50px; font-weight: 200; color: var(--primary); }
-        .warning-text { font-size: 11px; color: var(--gold); opacity: 0.7; margin-top: 15px; text-transform: uppercase; letter-spacing: 1px; }
+        .total-container { margin-top: 30px; padding: 20px; background: rgba(141, 228, 175, 0.05); border: 1px dashed var(--primary); border-radius: 15px; text-align: center; }
+        #prix-total { font-size: 45px; color: var(--primary); font-weight: bold; }
+        .warning { font-size: 10px; color: var(--gold); margin-top: 10px; text-transform: uppercase; opacity: 0.8; }
 
-        .social-links { position: absolute; bottom: 25px; right: 25px; display: flex; gap: 15px; }
-        .social-link { font-size: 24px; color: #ccc; transition: 0.3s; filter: grayscale(100%) opacity(0.6); text-decoration: none; }
-        .social-link:hover { filter: grayscale(0%) opacity(1); transform: scale(1.2); }
+        .social-links { position: absolute; bottom: 20px; right: 20px; display: flex; gap: 15px; }
+        .social-link { font-size: 20px; color: #ccc; opacity: 0.5; transition: 0.3s; }
+        .social-link:hover { opacity: 1; color: var(--primary); }
     </style>
 </head>
 <body>
 
 <div class="container">
     <h1>🍀 LE COMPTOIR DU FARFADET</h1>
-    <p class="subtitle">le plus malicieux du net</p>
+    <p class="subtitle">CONFIGURATEUR MALICIEUX</p>
 
     <div id="config-form">
         </div>
 
     <div class="total-container">
-        <div class="total-label">BUTIN ESTIMÉ</div>
+        <div style="font-size: 12px; color: var(--gold);">BUTIN ESTIMÉ</div>
         <div><span id="prix-total">0</span> €</div>
-        <p class="warning-text">⚠️ Prix sujets à variation</p>
+        <div class="warning">⚠️ Prix sujets à variation</div>
     </div>
 
     <div class="social-links">
@@ -79,76 +68,46 @@
 </div>
 
 <script>
-    let dataComposants = {};
+    let data = {};
 
-    async function chargerComposants() {
+    async function init() {
         try {
-            const reponse = await fetch('composants.json');
-            dataComposants = await reponse.json();
+            const res = await fetch('composants.json');
+            data = await res.json();
             const form = document.getElementById('config-form');
 
-            for (const key in dataComposants) {
-                if (key === "base_pc") continue;
+            // On crée les menus pour chaque catégorie du JSON
+            for (const cat in data) {
+                if (cat === "base_pc") continue;
 
-                const section = document.createElement('div');
-                section.className = 'section';
-                const idSelect = `select-${key}`;
-                const nomAffiche = key.replace(/_/g, ' ');
-
-                let optionsHtml = `<option value="0">-- CHOISIR --</option>`;
+                const div = document.createElement('div');
+                div.className = 'section';
                 
-                dataComposants[key].forEach(item => {
+                let options = `<option value="0">-- CHOISIR --</option>`;
+                data[cat].forEach(item => {
                     if (item.nom.startsWith('---')) {
-                        optionsHtml += `<option disabled>${item.nom}</option>`;
+                        options += `<option disabled>${item.nom}</option>`;
                     } else {
-                        optionsHtml += `<option value="${item.prix}">${item.nom} (${item.prix}€)</option>`;
+                        options += `<option value="${item.prix}">${item.nom} (${item.prix}€)</option>`;
                     }
                 });
 
-                section.innerHTML = `
-                    <label>${nomAffiche}</label>
-                    <input type="text" class="search-bar" placeholder="🔍 Rechercher un ${nomAffiche}..." 
-                           onkeyup="filtrerOptions('${idSelect}', this.value)">
-                    <select id="${idSelect}" class="comp-select" onchange="calculerTotal()">
-                        ${optionsHtml}
-                    </select>
-                `;
-                form.appendChild(section);
+                div.innerHTML = `<label>${cat.replace('_', ' ')}</label>
+                                 <select class="pc-select" onchange="maj()">${options}</select>`;
+                form.appendChild(div);
             }
-            calculerTotal();
-        } catch (e) { console.error("Erreur JSON :", e); }
+            maj();
+        } catch (e) { console.error("Erreur de grimoire", e); }
     }
 
-    function filtrerOptions(idSelect, texte) {
-        const select = document.getElementById(idSelect);
-        const filtre = texte.toLowerCase();
-        const options = select.options;
-
-        for (let i = 0; i < options.length; i++) {
-            const texteOption = options[i].text.toLowerCase();
-            // Garder "Choisir" et les titres "---" toujours visibles
-            if (i === 0 || options[i].disabled) {
-                options[i].style.display = "";
-            } else {
-                options[i].style.display = texteOption.includes(filtre) ? "" : "none";
-            }
-        }
-    }
-
-    function calculerTotal() {
+    function maj() {
         let total = 0;
-        document.querySelectorAll('.comp-select').forEach(s => {
-            total += parseInt(s.value) || 0;
-        });
-        
-        if (dataComposants.base_pc && dataComposants.base_pc.prix) {
-            total += dataComposants.base_pc.prix;
-        }
-        
+        document.querySelectorAll('.pc-select').forEach(s => total += parseInt(s.value));
+        if (data.base_pc) total += data.base_pc.prix;
         document.getElementById('prix-total').innerText = total;
     }
 
-    window.onload = chargerComposants;
+    window.onload = init;
 </script>
 </body>
 </html>
