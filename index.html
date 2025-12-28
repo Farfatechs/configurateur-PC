@@ -22,118 +22,98 @@
         body {
             font-family: 'Segoe UI', Roboto, sans-serif; 
             background-color: var(--bg);
-            background-image: 
-                radial-gradient(circle at 50% 0%, #1a2e23 0%, #0d110f 70%);
+            background-image: radial-gradient(circle at 50% 0%, #1a2e23 0%, #0d110f 70%);
             color: var(--text); margin: 0; padding: 15px; 
             display: flex; justify-content: center; min-height: 100vh;
         }
 
         .container {
             width: 100%; max-width: 600px; 
-            background: var(--card); 
-            padding: 30px 20px;
-            border-radius: 24px; 
-            border: 1px solid var(--accent); 
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), inset 0 0 20px rgba(141, 228, 175, 0.05);
-            position: relative; 
-            padding-bottom: 100px;
+            background: var(--card); padding: 30px 20px;
+            border-radius: 24px; border: 1px solid var(--accent); 
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+            position: relative; padding-bottom: 100px;
         }
 
         h1 { 
-            text-align: center; color: var(--primary); 
-            font-weight: 800; font-size: 1.5rem; margin: 0;
-            text-shadow: 0 0 15px var(--primary-glow);
-            letter-spacing: 2px;
+            text-align: center; color: var(--primary); font-weight: 800; 
+            font-size: 1.5rem; text-shadow: 0 0 15px var(--primary-glow);
+            letter-spacing: 2px; margin: 0;
         }
 
         .subtitle { 
-            text-align: center; color: var(--gold); 
-            font-size: 0.75rem; margin-bottom: 30px; 
-            letter-spacing: 4px; opacity: 0.9;
-            text-transform: uppercase;
+            text-align: center; color: var(--gold); font-size: 0.75rem; 
+            margin-bottom: 30px; letter-spacing: 4px; text-transform: uppercase;
         }
 
         .section { margin-bottom: 20px; }
 
         label { 
-            display: block; margin-bottom: 8px; margin-left: 5px;
-            color: var(--primary); font-size: 11px; font-weight: 700; 
-            text-transform: uppercase; opacity: 0.8;
+            display: block; margin-bottom: 8px; color: var(--primary); 
+            font-size: 11px; font-weight: 700; text-transform: uppercase;
         }
         
         .input-group { 
             display: flex; gap: 10px; align-items: center; 
             background: #1c231f; padding: 5px; border-radius: 14px;
             border: 1px solid var(--accent);
-            transition: 0.3s;
-        }
-        .input-group:focus-within {
-            border-color: var(--primary);
-            box-shadow: 0 0 10px var(--primary-glow);
         }
 
+        /* FORCER LE TEXTE VISIBLE SUR PC */
         select { 
-            flex: 1; padding: 10px; border: none;
-            background: transparent !important; color: #FFFFFF !important;
+            flex: 1; padding: 12px; border: none;
+            background: #1c231f !important; 
+            color: #FFFFFF !important; 
             font-size: 14px; outline: none; cursor: pointer;
+            appearance: none; -webkit-appearance: none;
+        }
+
+        /* Style des options pour Windows/Chrome/Edge */
+        select option {
+            background-color: #1c231f !important;
+            color: white !important;
         }
 
         .btn-search { 
             text-decoration: none; background: var(--gold); color: #161B18; 
             width: 38px; height: 38px; display: none; align-items: center; 
-            justify-content: center; border-radius: 10px; font-size: 14px; 
+            justify-content: center; border-radius: 10px; flex-shrink: 0;
             transition: 0.3s;
         }
-        .btn-search:hover { transform: scale(1.1); box-shadow: 0 0 15px var(--gold-glow); }
 
         .total-container { 
             margin-top: 40px; padding: 25px; 
-            background: linear-gradient(180deg, rgba(42, 51, 46, 0.4) 0%, rgba(22, 27, 24, 0.8) 100%);
+            background: rgba(42, 51, 46, 0.4);
             border: 1px solid var(--accent); border-radius: 20px; text-align: center; 
-            position: relative; overflow: hidden;
-        }
-
-        .total-container::before {
-            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 2px;
-            background: linear-gradient(90deg, transparent, var(--primary), transparent);
         }
 
         #prix-total { 
             font-size: 48px; font-weight: 200; color: var(--primary); 
-            display: block; margin: 10px 0;
-            text-shadow: 0 0 20px var(--primary-glow);
+            display: block; margin: 10px 0; text-shadow: 0 0 20px var(--primary-glow);
         }
         
         .conso-box { 
             margin-top: 15px; padding: 15px; border-radius: 12px;
-            background: rgba(0, 0, 0, 0.2);
-            color: var(--gold); font-size: 13px; display: none;
+            background: rgba(0, 0, 0, 0.3); color: var(--gold); font-size: 13px; display: none;
             border: 1px solid rgba(230, 194, 0, 0.1);
         }
-        .conso-val { font-weight: bold; color: #fff; font-size: 20px; text-shadow: 0 0 10px rgba(255,255,255,0.2); }
+        .conso-val { font-weight: bold; color: #fff; font-size: 20px; }
         .alim-rec { font-size: 12px; margin-top: 8px; color: var(--primary); font-weight: 600; text-transform: uppercase; }
 
         .btn-share { 
             background: var(--gold); border: none; color: #0D110F; padding: 16px; 
             border-radius: 12px; cursor: pointer; font-weight: 800; width: 100%; 
-            margin-top: 20px; font-size: 13px; letter-spacing: 1px;
-            transition: 0.3s;
+            margin-top: 20px; text-transform: uppercase; letter-spacing: 1px;
         }
-        .btn-share:hover { filter: brightness(1.1); transform: translateY(-2px); box-shadow: 0 5px 15px var(--gold-glow); }
 
         .social-links { position: absolute; bottom: 25px; left: 0; right: 0; display: flex; justify-content: center; gap: 25px; }
-        .social-link { font-size: 20px; color: var(--text); opacity: 0.4; transition: 0.3s; }
-        .social-link:hover { opacity: 1; color: var(--primary); transform: translateY(-3px); }
-
-        /* Animation d'apparition */
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        .section { animation: fadeIn 0.4s ease forwards; }
+        .social-link { font-size: 20px; color: var(--text); opacity: 0.4; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h1><i class="fas fa-hat-wizard" style="font-size: 0.8em; margin-right: 10px;"></i>LE COMPTOIR DU FARFADET</h1>
+    <h1><i class="fas fa-hat-wizard" style="font-size: 0.8em;"></i> LE COMPTOIR DU FARFADET</h1>
     <p class="subtitle">La Forge Technologique</p>
     
     <div id="config-form"></div>
@@ -143,13 +123,13 @@
         <span id="prix-total">0 €</span>
         
         <div id="conso-box" class="conso-box">
-            <div style="margin-bottom: 5px; opacity: 0.8;"><i class="fas fa-microchip"></i> CONSOMMATION ESTIMÉE</div>
+            <div style="margin-bottom: 5px; opacity: 0.8;"><i class="fas fa-bolt"></i> CONSOMMATION ESTIMÉE</div>
             <span id="conso-totale" class="conso-val">0</span> <span class="conso-val">W</span>
             <div id="alim-conseillee" class="alim-rec"></div>
         </div>
 
         <button id="btn-share" class="btn-share" onclick="partagerConfig()" style="display:none;">
-            <i class="fas fa-magic"></i> SCELLER LA CONFIGURATION
+            SCELLER LA CONFIGURATION
         </button>
     </div>
 
@@ -176,7 +156,6 @@
                 if (key === "base_pc") continue;
                 const section = document.createElement('div');
                 section.className = 'section';
-                section.style.animationDelay = (index * 0.05) + "s";
                 section.innerHTML = `
                     <label>${key.replace(/_/g, ' ')}</label>
                     <div class="input-group">
@@ -211,11 +190,9 @@
             if (parseInt(s.value) > 0) {
                 total += parseInt(s.value);
                 hasSelection = true;
-                
                 if (dataComposants[type] && dataComposants[type][idx] && dataComposants[type][idx].conso) {
                     consoTotalW += parseInt(dataComposants[type][idx].conso);
                 }
-
                 s.parentElement.querySelector('.btn-search').style.display = 'flex';
                 const text = opt.text.split('(')[0];
                 s.parentElement.querySelector('.btn-search').href = `https://www.google.com/search?q=${encodeURIComponent(text + " idealo")}`;
@@ -231,7 +208,7 @@
             const finalW = consoTotalW + 50;
             document.getElementById('conso-totale').innerText = finalW;
             const alimRec = Math.ceil((finalW * 1.33) / 50) * 50;
-            document.getElementById('alim-conseillee').innerHTML = `<i class="fas fa-plug"></i> Alimentation conseillée : ${alimRec}W`;
+            document.getElementById('alim-conseillee').innerText = "⚡ Alim conseillée : " + alimRec + "W";
             consoBox.style.display = 'block';
             document.getElementById('btn-share').style.display = 'block';
         } else {
@@ -248,7 +225,7 @@
         });
         const url = window.location.origin + window.location.pathname + '?' + params.toString();
         navigator.clipboard.writeText(url);
-        alert("Sortilège de partage activé ! Lien copié dans le grimoire.");
+        alert("Lien copié !");
     }
 
     window.onload = chargerComposants;
