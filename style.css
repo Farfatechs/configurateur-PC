@@ -1,128 +1,100 @@
-/* --- VARIABLES DE COULEURS --- */
-:root {
-    --primary: #8DE4AF;    /* Vert Farfadet */
-    --gold: #E6C200;       /* Or */
-    --bg: #1A1F1C;         /* Fond Sombre */
-    --card: #242B27;       /* Fond Cartes */
-    --text: #F0F5F2;       /* Texte clair */
-    --accent: #3A473F;     /* Bordures */
-    --danger: #FF5F5F;     /* Alertes */
-}
+<style>
+        :root {
+            --primary: #8DE4AF; 
+            --primary-glow: rgba(141, 228, 175, 0.4);
+            --gold: #E6C200; 
+            --gold-glow: rgba(230, 194, 0, 0.3);
+            --bg: #0D110F;
+            --card: #161B18; 
+            --text: #F0F5F2; 
+            --accent: #2A332E;
+        }
 
-/* --- STYLE GÉNÉRAL --- */
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: var(--bg);
-    background-image: linear-gradient(135deg, #1A1F1C 0%, #2D3631 100%);
-    color: var(--text);
-    margin: 0;
-    padding: 20px;
-    display: flex;
-    justify-content: center;
-    min-height: 100vh;
-}
+        * { box-sizing: border-box; max-width: 100%; }
 
-/* --- LE CONTENEUR PRINCIPAL --- */
-.configurateur {
-    width: 100%;
-    max-width: 600px;
-    background: var(--card);
-    padding: 40px;
-    border-radius: 30px;
-    border: 1px solid var(--accent);
-    box-shadow: 0 10px 50px rgba(0, 0, 0, 0.5);
-}
+        body {
+            font-family: 'Segoe UI', Roboto, sans-serif; 
+            background-color: var(--bg);
+            background-image: radial-gradient(circle at 50% 0%, #1a2e23 0%, #0d110f 70%);
+            color: var(--text); margin: 0; padding: 15px; 
+            display: flex; justify-content: center; min-height: 100vh;
+        }
 
-h1 {
-    text-align: center;
-    color: var(--primary);
-    font-weight: 300;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    margin-bottom: 30px;
-}
+        .container {
+            width: 100%; max-width: 600px; 
+            background: var(--card); padding: 30px 20px;
+            border-radius: 24px; border: 1px solid var(--accent); 
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+            position: relative; padding-bottom: 100px;
+        }
 
-/* --- LES SECTIONS (LABEL + SELECT) --- */
-.section {
-    margin-bottom: 20px;
-}
+        h1 { 
+            text-align: center; color: var(--primary); font-weight: 800; 
+            font-size: 1.5rem; text-shadow: 0 0 15px var(--primary-glow);
+            letter-spacing: 2px; margin: 0;
+        }
 
-label {
-    display: block;
-    margin-bottom: 8px;
-    color: var(--primary);
-    font-size: 11px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
+        .subtitle { 
+            text-align: center; color: var(--gold); font-size: 0.75rem; 
+            margin-bottom: 30px; letter-spacing: 4px; text-transform: uppercase;
+        }
 
-/* --- LES MENUS DÉROULANTS (SELECT) --- */
-select {
-    width: 100%;
-    padding: 12px 15px;
-    border-radius: 12px;
-    border: 1px solid var(--accent);
-    background-color: #2D3631 !important; /* Force le fond sombre */
-    color: #FFFFFF !important;            /* Force le texte blanc */
-    font-size: 14px;
-    cursor: pointer;
-    outline: none;
-    transition: border 0.3s;
-}
+        .section { margin-bottom: 20px; }
 
-select:focus {
-    border-color: var(--primary);
-}
+        label { 
+            display: block; margin-bottom: 8px; color: var(--primary); 
+            font-size: 11px; font-weight: 700; text-transform: uppercase;
+        }
+        
+        /* CORRECTION VISIBILITÉ TEXTE ICI */
+        .input-group { 
+            display: flex; gap: 10px; align-items: center; 
+            background: #1c231f; padding: 5px; border-radius: 14px;
+            border: 1px solid var(--accent);
+        }
 
-/* --- STYLE DES TITRES DE CATÉGORIES (DÉSACTIVÉS) --- */
-select option:disabled {
-    background-color: #1A1F1C !important;
-    color: var(--gold) !important; /* Les titres s'affichent en Or */
-    font-weight: bold;
-    font-style: italic;
-}
+        select { 
+            flex: 1; padding: 10px; border: none;
+            background: #1c231f !important; /* Fond sombre forcé */
+            color: #FFFFFF !important; /* Texte blanc forcé */
+            font-size: 14px; outline: none; cursor: pointer;
+            appearance: none; -webkit-appearance: none;
+        }
 
-select option {
-    background-color: #2D3631;
-    color: white;
-    padding: 10px;
-}
+        /* Pour que les options dans la liste soient aussi lisibles sur PC */
+        select option {
+            background-color: #1c231f !important;
+            color: white !important;
+        }
 
-/* --- LE TOTAL --- */
-.total-container {
-    margin-top: 30px;
-    padding: 20px;
-    background: rgba(141, 228, 175, 0.05);
-    border: 1px dashed var(--primary);
-    border-radius: 15px;
-    text-align: center;
-}
+        .btn-search { 
+            text-decoration: none; background: var(--gold); color: #161B18; 
+            width: 38px; height: 38px; display: none; align-items: center; 
+            justify-content: center; border-radius: 10px; flex-shrink: 0;
+        }
 
-h2 {
-    color: var(--text);
-    font-weight: 300;
-    margin: 0;
-}
+        .total-container { 
+            margin-top: 40px; padding: 25px; 
+            background: rgba(42, 51, 46, 0.4);
+            border: 1px solid var(--accent); border-radius: 20px; text-align: center; 
+        }
 
-#prix-total {
-    font-size: 40px;
-    color: var(--primary);
-    font-weight: bold;
-}
+        #prix-total { 
+            font-size: 48px; font-weight: 200; color: var(--primary); 
+            display: block; margin: 10px 0; text-shadow: 0 0 20px var(--primary-glow);
+        }
+        
+        .conso-box { 
+            margin-top: 15px; padding: 15px; border-radius: 12px;
+            background: rgba(0, 0, 0, 0.3); color: var(--gold); font-size: 13px; display: none;
+        }
 
-.maj-info {
-    font-size: 11px;
-    color: var(--gold);
-    opacity: 0.7;
-    margin-top: 10px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
+        .btn-share { 
+            background: var(--gold); border: none; color: #0D110F; padding: 16px; 
+            border-radius: 12px; cursor: pointer; font-weight: 800; width: 100%; 
+            margin-top: 20px; text-transform: uppercase;
+        }
 
-hr {
-    border: 0;
-    height: 1px;
-    background: var(--accent);
-    margin: 30px 0;
-}
+        .social-links { position: absolute; bottom: 25px; left: 0; right: 0; display: flex; justify-content: center; gap: 25px; }
+        .social-link { font-size: 20px; color: var(--text); opacity: 0.4; }
+    </style>
