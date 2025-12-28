@@ -3,6 +3,7 @@
     { "nom": "--- AMD RYZEN 9000 SERIES (AM5) ---", "prix": 0 },
     { "nom": "Ryzen 9 9950X", "prix": 550, "socket": "AM5", "conso": 170 },
     { "nom": "Ryzen 9 9900X", "prix": 450, "socket": "AM5", "conso": 120 },
+      { "nom": "Ryzen 7 9800X3D", "prix": 450, "socket": "AM5", "conso": 170 },
     { "nom": "Ryzen 7 9700X", "prix": 330, "socket": "AM5", "conso": 65 },
     { "nom": "Ryzen 5 9600X", "prix": 250, "socket": "AM5", "conso": 65 },
     { "nom": "--- AMD RYZEN 7000 SERIES (AM5) ---", "prix": 0 },
