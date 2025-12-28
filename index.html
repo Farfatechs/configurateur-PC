@@ -2,128 +2,101 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Configurateur PC - Logos Animés</title>
+    <title>Configurateur PC - Liste des Composants</title>
     <style>
-        /* --- STYLE GLOBAL --- */
         body {
-            background-color: #0f172a; /* Bleu très foncé moderne */
-            color: white;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            padding: 40px;
+            background-color: #f4f4f9;
+            font-family: Arial, sans-serif;
+            padding: 20px;
         }
 
         .container {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 25px;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
         }
 
-        /* --- ANIMATION DES LOGOS --- */
-        .component-card {
-            background: #1e293b;
-            border-radius: 12px;
-            padding: 20px;
+        .card {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
             text-align: center;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            cursor: pointer;
-            border: 1px solid #334155;
-            position: relative;
-            overflow: hidden;
         }
 
-        /* Image du logo par défaut */
-        .component-card img {
-            width: 80px;
-            height: 80px;
-            object-fit: contain;
-            margin-bottom: 15px;
-            filter: grayscale(100%) opacity(0.7); /* Noir et blanc de base */
-            transition: all 0.4s ease;
-        }
-
-        /* Effet au survol (Mouse Over) */
-        .component-card:hover {
-            transform: translateY(-10px); /* Soulèvement */
-            background: #2d3748;
-            border-color: #3b82f6; /* Bordure bleue au hover */
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-        }
-
-        .component-card:hover img {
-            filter: grayscale(0%) opacity(1); /* Retour de la couleur */
-            transform: scale(1.1); /* Zoom léger du logo */
-            drop-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
-        }
-
-        /* Petit effet de reflet brillant qui passe sur la carte */
-        .component-card::after {
-            content: "";
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.05), transparent);
-            transform: rotate(45deg);
-            transition: 0.5s;
-        }
-
-        .component-card:hover::after {
-            left: 100%;
-            top: 100%;
+        .card h3 {
+            margin: 10px 0;
+            font-size: 1.1em;
         }
 
         .price {
-            display: block;
-            margin-top: 10px;
+            color: #27ae60;
             font-weight: bold;
-            color: #10b981; /* Vert pour le prix */
+            font-size: 1.2em;
+        }
+
+        .category-title {
+            grid-column: 1 / -1;
+            background: #2c3e50;
+            color: white;
+            padding: 10px;
+            margin-top: 20px;
+            border-radius: 5px;
         }
     </style>
 </head>
 <body>
 
-    <h1>Choisir un Processeur</h1>
-    <div id="processor-list" class="container"></div>
+    <h1>Mon Configurateur PC</h1>
+    <div id="pc-builder" class="container"></div>
 
     <script>
-        // Ton fichier JSON intégré
+        // Ton JSON complet ici
         const data = {
             "processeurs": [
-                { "nom": "Ryzen 9 9950X", "prix": 550, "marque": "amd" },
-                { "nom": "Core i9-14900K", "prix": 550, "marque": "intel" },
-                { "nom": "Ryzen 7 7800X3D", "prix": 450, "marque": "amd" },
-                { "nom": "Core i7-14700K", "prix": 380, "marque": "intel" }
-                // Tu peux copier-coller tout ton JSON ici
+                { "nom": "--- AMD RYZEN 9000 SERIES (AM5) ---", "prix": 0 },
+                { "nom": "Ryzen 9 9950X", "prix": 550 },
+                { "nom": "Ryzen 9 9900X", "prix": 450 }
+                // ... rajoute le reste de ton JSON ici
+            ],
+            "cartes_graphiques": [
+                { "nom": "NVIDIA RTX 5090", "prix": 2000 },
+                { "nom": "NVIDIA RTX 5080", "prix": 1200 }
             ]
         };
 
-        const listContainer = document.getElementById('processor-list');
+        const container = document.getElementById('pc-builder');
 
-        // Fonction pour afficher les composants
-        function displayProcessors() {
-            data.processeurs.forEach(p => {
-                if(p.prix > 0) { // On ignore les titres (prix 0)
-                    const card = document.createElement('div');
-                    card.className = 'component-card';
-                    
-                    // On définit le logo dynamiquement selon la marque
-                    const logoSrc = p.marque === 'amd' 
-                        ? 'https://upload.wikimedia.org/wikipedia/commons/7/7c/AMD_Logo.svg' 
-                        : 'https://upload.wikimedia.org/wikipedia/commons/c/c9/Intel-logo.svg';
+        // Fonction pour générer l'affichage
+        function renderComponents(categoryName, components) {
+            // Création du titre de la catégorie
+            const title = document.createElement('div');
+            title.className = 'category-title';
+            title.innerText = categoryName.replace('_', ' ').toUpperCase();
+            container.appendChild(title);
 
-                    card.innerHTML = `
-                        <img src="${logoSrc}" alt="${p.marque}">
-                        <div>${p.nom}</div>
-                        <div class="price">${p.prix} €</div>
-                    `;
-                    
-                    listContainer.appendChild(card);
-                }
+            // Création des cartes
+            components.forEach(item => {
+                if(item.prix === 0) return; // Ignore les séparateurs de catégorie internes
+
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.innerHTML = `
+                    <h3>${item.nom}</h3>
+                    <p class="price">${item.prix} €</p>
+                    <button>Ajouter au panier</button>
+                `;
+                container.appendChild(card);
             });
         }
 
-        displayProcessors();
+        // Boucle sur toutes les catégories du JSON
+        for (const category in data) {
+            if (Array.isArray(data[category])) {
+                renderComponents(category, data[category]);
+            }
+        }
     </script>
 </body>
 </html>
