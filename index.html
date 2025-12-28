@@ -3,120 +3,131 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Le Comptoir du Farfadet - Configurateur</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Le Comptoir du Farfadet</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary: #8DE4AF; --gold: #E6C200; --bg: #1A1F1C;
+            --card: #242B27; --text: #F0F5F2; --accent: #3A473F;
+        }
+
+        body {
+            font-family: 'Segoe UI', sans-serif; background-color: var(--bg);
+            background-image: linear-gradient(135deg, #1A1F1C 0%, #2D3631 100%);
+            color: var(--text); margin: 0; padding: 20px; display: flex; justify-content: center; min-height: 100vh;
+        }
+
+        .container {
+            width: 100%; max-width: 850px; background: var(--card); padding: 40px;
+            border-radius: 30px; border: 1px solid var(--accent); box-shadow: 0 10px 50px rgba(0, 0, 0, 0.4);
+            position: relative; padding-bottom: 100px;
+        }
+
+        h1 { text-align: center; color: var(--primary); font-weight: 300; letter-spacing: 2px; margin-bottom: 5px; }
+        .subtitle { text-align: center; color: var(--gold); font-size: 0.85rem; margin-bottom: 40px; opacity: 0.7; font-style: italic; letter-spacing: 3px; text-transform: uppercase; }
+
+        .section { margin-bottom: 25px; }
+        label { display: block; margin-bottom: 12px; color: var(--primary); font-size: 12px; font-weight: 600; text-transform: uppercase; }
+        
+        select { 
+            width: 100%; padding: 14px; border-radius: 12px; border: 1px solid var(--accent); 
+            background: #2D3631 !important; color: #FFFFFF !important;
+            font-size: 15px; cursor: pointer; outline: none; transition: 0.3s;
+        }
+        select:focus { border-color: var(--primary); }
+
+        /* Style des titres dans le menu */
+        select option:disabled { color: var(--gold) !important; font-weight: bold; background: #1A1F1C; }
+
+        .total-container { margin-top: 40px; padding: 35px; background: rgba(141, 228, 175, 0.05); border: 1px dashed var(--primary); border-radius: 20px; text-align: center; }
+        .total-label { font-size: 13px; color: var(--gold); letter-spacing: 4px; margin-bottom: 10px; }
+        #prix-total { font-size: 50px; font-weight: 200; color: var(--primary); }
+
+        .social-links { position: absolute; bottom: 25px; right: 25px; display: flex; gap: 15px; }
+        .social-link { font-size: 24px; color: #ccc; transition: 0.3s; filter: grayscale(100%) opacity(0.6); text-decoration: none; }
+        .social-link:hover { filter: grayscale(0%) opacity(1); transform: scale(1.2); }
+    </style>
 </head>
 <body>
 
-    <div class="configurateur">
-        <h1>🛠️ Configurateur PC</h1>
-        
-        <div class="section">
-            <label>Processeur :</label>
-            <select id="processeurs" onchange="calculerTotal()"></select>
+<div class="container">
+    <h1>🍀 LE COMPTOIR DU FARFADET</h1>
+    <p class="subtitle">le plus malicieux du net</p>
+
+    <div id="config-form">
         </div>
 
-        <div class="section">
-            <label>Carte Mère :</label>
-            <select id="cartes_meres" onchange="calculerTotal()"></select>
-        </div>
-
-        <div class="section">
-            <label>Mémoire RAM :</label>
-            <select id="memoire_ram" onchange="calculerTotal()"></select>
-        </div>
-
-        <div class="section">
-            <label>Carte Graphique :</label>
-            <select id="cartes_graphiques" onchange="calculerTotal()"></select>
-        </div>
-
-        <div class="section">
-            <label>Refroidissement :</label>
-            <select id="refroidissement" onchange="calculerTotal()"></select>
-        </div>
-
-        <div class="section">
-            <label>Alimentation :</label>
-            <select id="alimentation" onchange="calculerTotal()"></select>
-        </div>
-
-        <div class="section">
-            <label>Boîtier :</label>
-            <select id="boitiers" onchange="calculerTotal()"></select>
-        </div>
-
-        <hr>
-
-        <div class="total-container">
-            <h2>Total estimé : <span id="prix-total">0</span>€</h2>
-            <p class="maj-info">⚠️ Prix sujets à variation</p>
-        </div>
+    <div class="total-container">
+        <div class="total-label">BUTIN ESTIMÉ</div>
+        <div><span id="prix-total">0</span> €</div>
     </div>
 
-    <script>
-        let donneesPC = {};
+    <div class="social-links">
+        <a href="https://www.instagram.com/farfatechs/" target="_blank" class="social-link"><i class="fab fa-instagram"></i></a>
+        <a href="https://discord.gg/dj7ueSS9sh" target="_blank" class="social-link"><i class="fab fa-discord"></i></a>
+        <a href="https://www.youtube.com/@Farfatech" target="_blank" class="social-link"><i class="fab fa-youtube"></i></a>
+    </div>
+</div>
 
-        async function chargerComposants() {
-            try {
-                // On récupère le JSON
-                const response = await fetch('composants.json');
-                donneesPC = await response.json();
+<script>
+    let dataComposants = {};
+
+    async function chargerComposants() {
+        try {
+            const reponse = await fetch('composants.json');
+            dataComposants = await reponse.json();
+            const form = document.getElementById('config-form');
+
+            // Parcourir chaque catégorie du JSON
+            for (const key in dataComposants) {
+                if (key === "base_pc") continue;
+
+                const section = document.createElement('div');
+                section.className = 'section';
                 
-                // On remplit chaque menu
-                remplirSelect('processeurs', donneesPC.processeurs);
-                remplirSelect('cartes_meres', donneesPC.cartes_meres);
-                remplirSelect('memoire_ram', donneesPC.memoire_ram);
-                remplirSelect('cartes_graphiques', donneesPC.cartes_graphiques);
-                remplirSelect('refroidissement', donneesPC.refroidissement);
-                remplirSelect('alimentation', donneesPC.alimentation);
-                remplirSelect('boitiers', donneesPC.boitiers);
-
-                calculerTotal();
-            } catch (error) {
-                console.error("Erreur de chargement JSON:", error);
-            }
-        }
-
-        function remplirSelect(id, liste) {
-            const select = document.getElementById(id);
-            select.innerHTML = ""; 
-
-            liste.forEach((item) => {
-                const option = document.createElement('option');
+                let optionsHtml = `<option value="0">-- CHOISIR --</option>`;
                 
-                // Si c'est un titre (commence par ---)
-                if (item.nom.startsWith('---')) {
-                    option.text = item.nom;
-                    option.value = 0;
-                    option.disabled = true; // Empêche la sélection
-                } else {
-                    option.text = `${item.nom} (+${item.prix}€)`;
-                    option.value = item.prix;
-                }
-                select.appendChild(option);
-            });
-        }
+                dataComposants[key].forEach(item => {
+                    // Si le nom commence par --- c'est un titre décoratif
+                    if (item.nom.startsWith('---')) {
+                        optionsHtml += `<option disabled>${item.nom}</option>`;
+                    } else {
+                        optionsHtml += `<option value="${item.prix}">${item.nom} (${item.prix}€)</option>`;
+                    }
+                });
 
-        function calculerTotal() {
-            const ids = ['processeurs', 'cartes_meres', 'memoire_ram', 'cartes_graphiques', 'refroidissement', 'alimentation', 'boitiers'];
-            let total = 0;
+                // On transforme les "underscores" du JSON en espaces pour l'affichage
+                const nomPropre = key.replace(/_/g, ' ');
 
-            ids.forEach(id => {
-                const select = document.getElementById(id);
-                if (select && select.value) {
-                    total += parseInt(select.value);
-                }
-            });
-
-            if (donneesPC.base_pc) {
-                total += donneesPC.base_pc.prix;
+                section.innerHTML = `
+                    <label>${nomPropre}</label>
+                    <select class="comp-select" onchange="calculerTotal()">
+                        ${optionsHtml}
+                    </select>
+                `;
+                form.appendChild(section);
             }
-
-            document.getElementById('prix-total').innerText = total;
+            calculerTotal();
+        } catch (e) {
+            console.error("Erreur de chargement du grimoire (JSON) :", e);
         }
+    }
 
-        window.onload = chargerComposants;
-    </script>
+    function calculerTotal() {
+        let total = 0;
+        document.querySelectorAll('.comp-select').forEach(s => {
+            total += parseInt(s.value) || 0;
+        });
+        
+        // Ajout du prix de montage/licence si présent
+        if (dataComposants.base_pc && dataComposants.base_pc.prix) {
+            total += dataComposants.base_pc.prix;
+        }
+        
+        document.getElementById('prix-total').innerText = total;
+    }
+
+    window.onload = chargerComposants;
+</script>
 </body>
 </html>
