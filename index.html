@@ -9,6 +9,7 @@
         :root {
             --primary: #8DE4AF; --gold: #E6C200; --bg: #1A1F1C;
             --card: #242B27; --text: #F0F5F2; --accent: #3A473F;
+            --danger: #FF5F5F;
         }
 
         body {
@@ -18,46 +19,75 @@
         }
 
         .container {
-            width: 100%; max-width: 600px; background: var(--card); padding: 40px;
-            border-radius: 30px; border: 1px solid var(--accent); box-shadow: 0 10px 50px rgba(0,0,0,0.4);
+            width: 100%; max-width: 850px; background: var(--card); padding: 40px;
+            border-radius: 30px; border: 1px solid var(--accent); box-shadow: 0 10px 50px rgba(0, 0, 0, 0.4);
             position: relative; padding-bottom: 100px;
         }
 
         h1 { text-align: center; color: var(--primary); font-weight: 300; letter-spacing: 2px; }
-        .subtitle { text-align: center; color: var(--gold); font-size: 0.8rem; margin-bottom: 30px; opacity: 0.7; letter-spacing: 2px; }
+        .subtitle { text-align: center; color: var(--gold); font-size: 0.85rem; margin-bottom: 40px; opacity: 0.7; font-style: italic; }
 
-        .section { margin-bottom: 20px; }
-        label { display: block; margin-bottom: 8px; color: var(--primary); font-size: 11px; font-weight: 700; text-transform: uppercase; }
-        
-        select { 
-            width: 100%; padding: 12px; border-radius: 10px; border: 1px solid var(--accent); 
-            background: #2D3631; color: white; font-size: 14px; outline: none;
+        #compat-warning {
+            display: none; background: rgba(255, 95, 95, 0.1); border: 1px solid var(--danger);
+            color: var(--danger); padding: 15px; border-radius: 12px; margin-bottom: 25px; text-align: center; font-weight: bold;
         }
 
-        select option:disabled { color: var(--gold); font-weight: bold; }
+        .section { margin-bottom: 25px; }
+        label { display: block; margin-bottom: 12px; color: var(--primary); font-size: 12px; font-weight: 600; text-transform: uppercase; }
+        
+        .input-group { display: flex; gap: 15px; align-items: center; }
 
-        .total-container { margin-top: 30px; padding: 20px; background: rgba(141, 228, 175, 0.05); border: 1px dashed var(--primary); border-radius: 15px; text-align: center; }
-        #prix-total { font-size: 45px; color: var(--primary); font-weight: bold; }
-        .warning { font-size: 10px; color: var(--gold); margin-top: 10px; text-transform: uppercase; opacity: 0.8; }
+        select { 
+            flex: 1; padding: 14px; border-radius: 12px; border: 1px solid var(--accent); 
+            background: #2D3631 !important; color: #FFFFFF !important;
+            font-size: 15px; cursor: pointer; outline: none;
+        }
 
-        .social-links { position: absolute; bottom: 20px; right: 20px; display: flex; gap: 15px; }
-        .social-link { font-size: 20px; color: #ccc; opacity: 0.5; transition: 0.3s; }
-        .social-link:hover { opacity: 1; color: var(--primary); }
+        select option { background-color: #2D3631 !important; color: #FFFFFF !important; }
+        select option:disabled { color: var(--gold) !important; font-weight: bold; }
+        select.error { border-color: var(--danger); box-shadow: 0 0 10px rgba(255, 95, 95, 0.2); }
+
+        .btn-search { 
+            text-decoration: none; background: var(--gold); color: #242B27; 
+            width: 52px; height: 52px; display: none; align-items: center; 
+            justify-content: center; border-radius: 15px; font-size: 20px; transition: 0.4s; 
+        }
+        .btn-search:hover { transform: translateY(-5px); box-shadow: 0 5px 15px rgba(230, 194, 0, 0.4); }
+
+        .total-container { margin-top: 40px; padding: 35px; background: rgba(141, 228, 175, 0.05); border: 1px dashed var(--primary); border-radius: 20px; text-align: center; }
+        #prix-total { font-size: 50px; font-weight: 200; color: var(--primary); }
+        .warning-text { font-size: 11px; color: var(--gold); opacity: 0.7; margin-top: 15px; text-transform: uppercase; }
+
+        .share-box { text-align: center; margin-top: 30px; }
+        .btn-share { background: var(--gold); border: none; color: #1A1C1C; padding: 12px 25px; border-radius: 50px; cursor: pointer; font-weight: bold; display: none; }
+
+        .social-links { position: absolute; bottom: 25px; right: 25px; display: flex; gap: 15px; }
+        .social-link { font-size: 24px; color: #ccc; transition: 0.3s; filter: grayscale(100%) opacity(0.6); text-decoration: none; }
+        .social-link:hover { filter: grayscale(0%) opacity(1); transform: scale(1.2); }
     </style>
 </head>
 <body>
 
 <div class="container">
     <h1>🍀 LE COMPTOIR DU FARFADET</h1>
-    <p class="subtitle">CONFIGURATEUR MALICIEUX</p>
+    <p class="subtitle">le plus malicieux du net</p>
 
-    <div id="config-form">
-        </div>
+    <div id="compat-warning">
+        <i class="fas fa-exclamation-triangle"></i> <span id="warning-text"></span>
+    </div>
+    
+    <div id="config-form"></div>
 
     <div class="total-container">
-        <div style="font-size: 12px; color: var(--gold);">BUTIN ESTIMÉ</div>
+        <div style="font-size: 13px; color: var(--gold); letter-spacing: 4px; margin-bottom: 10px;">BUTIN ESTIMÉ</div>
         <div><span id="prix-total">0</span> €</div>
-        <div class="warning">⚠️ Prix sujets à variation</div>
+        <p class="warning-text">⚠️ Prix sujets à variation</p>
+    </div>
+
+    <div class="share-box">
+        <button id="btn-share" class="btn-share" onclick="partagerConfig()">
+            <i class="fas fa-share-nodes"></i> PARTAGER LE BUTIN
+        </button>
     </div>
 
     <div class="social-links">
@@ -68,46 +98,117 @@
 </div>
 
 <script>
-    let data = {};
+    let dataComposants = {};
+    let prixBase = 0;
 
-    async function init() {
+    async function chargerComposants() {
         try {
-            const res = await fetch('composants.json');
-            data = await res.json();
+            const reponse = await fetch('composants.json');
+            dataComposants = await reponse.json();
+            prixBase = dataComposants.base_pc ? dataComposants.base_pc.prix : 0;
             const form = document.getElementById('config-form');
+            const urlParams = new URLSearchParams(window.location.search);
 
-            // On crée les menus pour chaque catégorie du JSON
-            for (const cat in data) {
-                if (cat === "base_pc") continue;
+            let index = 0;
+            for (const key in dataComposants) {
+                if (key === "base_pc") continue;
+                const section = document.createElement('div');
+                section.className = 'section';
+                section.innerHTML = `
+                    <label>${key.replace(/_/g, ' ')}</label>
+                    <div class="input-group">
+                        <select class="composant-select" id="select-${index}" data-type="${key}" onchange="analyserConfig()">
+                            <option value="0" data-idx="-1">-- CHOISIR --</option>
+                            ${dataComposants[key].map((item, i) => {
+                                const isTitle = item.nom.startsWith('---');
+                                return `<option value="${item.prix}" data-idx="${i}" ${isTitle ? 'disabled' : ''}>
+                                    ${item.nom} ${(!isTitle && item.prix > 0) ? `(${item.prix}€)` : ''}
+                                </option>`;
+                            }).join('')}
+                        </select>
+                        <a class="btn-search" target="_blank">🔍</a>
+                    </div>
+                `;
+                form.appendChild(section);
 
-                const div = document.createElement('div');
-                div.className = 'section';
-                
-                let options = `<option value="0">-- CHOISIR --</option>`;
-                data[cat].forEach(item => {
-                    if (item.nom.startsWith('---')) {
-                        options += `<option disabled>${item.nom}</option>`;
-                    } else {
-                        options += `<option value="${item.prix}">${item.nom} (${item.prix}€)</option>`;
-                    }
-                });
-
-                div.innerHTML = `<label>${cat.replace('_', ' ')}</label>
-                                 <select class="pc-select" onchange="maj()">${options}</select>`;
-                form.appendChild(div);
+                const savedIndex = urlParams.get(`c${index}`);
+                if (savedIndex !== null) {
+                    document.getElementById(`select-${index}`).selectedIndex = parseInt(savedIndex) + 1;
+                }
+                index++;
             }
-            maj();
-        } catch (e) { console.error("Erreur de grimoire", e); }
+            analyserConfig();
+        } catch (e) { console.error(e); }
     }
 
-    function maj() {
-        let total = 0;
-        document.querySelectorAll('.pc-select').forEach(s => total += parseInt(s.value));
-        if (data.base_pc) total += data.base_pc.prix;
+    function analyserConfig() {
+        const picks = {};
+        const selects = document.querySelectorAll('.composant-select');
+        selects.forEach(s => s.classList.remove('error'));
+        let errorMsg = "";
+
+        selects.forEach(s => {
+            const type = s.dataset.type;
+            const selectedOption = s.options[s.selectedIndex];
+            const idx = selectedOption.dataset.idx;
+            const btn = s.parentElement.querySelector('.btn-search');
+
+            if (idx >= 0) {
+                picks[type] = dataComposants[type][idx];
+                // Mise à jour du lien Google Idealo
+                btn.href = `https://www.google.com/search?q=${encodeURIComponent(picks[type].nom + " idealo")}`;
+                btn.style.display = 'flex';
+            } else {
+                btn.style.display = 'none';
+            }
+        });
+
+        // Verifications de compatibilité
+        if(picks.processeurs && picks.cartes_meres && picks.processeurs.socket !== picks.cartes_meres.socket) {
+            errorMsg = `🚨 Socket incompatible (${picks.processeurs.socket} vs ${picks.cartes_meres.socket}) !`;
+            document.querySelector('[data-type="processeurs"]').classList.add('error');
+            document.querySelector('[data-type="cartes_meres"]').classList.add('error');
+        }
+        if(!errorMsg && picks.cartes_meres && picks.memoire_ram && picks.cartes_meres.ram !== picks.memoire_ram.type) {
+            errorMsg = `🚨 Type de RAM incompatible !`;
+            document.querySelector('[data-type="cartes_meres"]').classList.add('error');
+            document.querySelector('[data-type="memoire_ram"]').classList.add('error');
+        }
+
+        const warnDiv = document.getElementById('compat-warning');
+        if(errorMsg) {
+            document.getElementById('warning-text').innerText = errorMsg;
+            warnDiv.style.display = 'block';
+        } else warnDiv.style.display = 'none';
+
+        calculerTotal();
+    }
+
+    function calculerTotal() {
+        let total = 0; let count = 0;
+        document.querySelectorAll('.composant-select').forEach(s => {
+            if (parseInt(s.value) > 0 && !s.options[s.selectedIndex].disabled) { 
+                total += parseInt(s.value); 
+                count++; 
+            }
+        });
+        if (count > 0) total += prixBase;
         document.getElementById('prix-total').innerText = total;
+        document.getElementById('btn-share').style.display = count > 0 ? 'inline-block' : 'none';
     }
 
-    window.onload = init;
+    function partagerConfig() {
+        const params = new URLSearchParams();
+        document.querySelectorAll('.composant-select').forEach((s, i) => {
+            if (s.selectedIndex > 0) params.set(`c${i}`, s.options[s.selectedIndex].dataset.idx);
+        });
+        const url = window.location.origin + window.location.pathname + '?' + params.toString();
+        navigator.clipboard.writeText(url).then(() => {
+            alert("Lien de partage copié dans le grimoire !");
+        });
+    }
+
+    window.onload = chargerComposants;
 </script>
 </body>
 </html>
