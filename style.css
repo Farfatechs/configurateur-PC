@@ -1,0 +1,128 @@
+/* --- VARIABLES DE COULEURS --- */
+:root {
+    --primary: #8DE4AF;    /* Vert Farfadet */
+    --gold: #E6C200;       /* Or */
+    --bg: #1A1F1C;         /* Fond Sombre */
+    --card: #242B27;       /* Fond Cartes */
+    --text: #F0F5F2;       /* Texte clair */
+    --accent: #3A473F;     /* Bordures */
+    --danger: #FF5F5F;     /* Alertes */
+}
+
+/* --- STYLE GÉNÉRAL --- */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--bg);
+    background-image: linear-gradient(135deg, #1A1F1C 0%, #2D3631 100%);
+    color: var(--text);
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+/* --- LE CONTENEUR PRINCIPAL --- */
+.configurateur {
+    width: 100%;
+    max-width: 600px;
+    background: var(--card);
+    padding: 40px;
+    border-radius: 30px;
+    border: 1px solid var(--accent);
+    box-shadow: 0 10px 50px rgba(0, 0, 0, 0.5);
+}
+
+h1 {
+    text-align: center;
+    color: var(--primary);
+    font-weight: 300;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 30px;
+}
+
+/* --- LES SECTIONS (LABEL + SELECT) --- */
+.section {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--primary);
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* --- LES MENUS DÉROULANTS (SELECT) --- */
+select {
+    width: 100%;
+    padding: 12px 15px;
+    border-radius: 12px;
+    border: 1px solid var(--accent);
+    background-color: #2D3631 !important; /* Force le fond sombre */
+    color: #FFFFFF !important;            /* Force le texte blanc */
+    font-size: 14px;
+    cursor: pointer;
+    outline: none;
+    transition: border 0.3s;
+}
+
+select:focus {
+    border-color: var(--primary);
+}
+
+/* --- STYLE DES TITRES DE CATÉGORIES (DÉSACTIVÉS) --- */
+select option:disabled {
+    background-color: #1A1F1C !important;
+    color: var(--gold) !important; /* Les titres s'affichent en Or */
+    font-weight: bold;
+    font-style: italic;
+}
+
+select option {
+    background-color: #2D3631;
+    color: white;
+    padding: 10px;
+}
+
+/* --- LE TOTAL --- */
+.total-container {
+    margin-top: 30px;
+    padding: 20px;
+    background: rgba(141, 228, 175, 0.05);
+    border: 1px dashed var(--primary);
+    border-radius: 15px;
+    text-align: center;
+}
+
+h2 {
+    color: var(--text);
+    font-weight: 300;
+    margin: 0;
+}
+
+#prix-total {
+    font-size: 40px;
+    color: var(--primary);
+    font-weight: bold;
+}
+
+.maj-info {
+    font-size: 11px;
+    color: var(--gold);
+    opacity: 0.7;
+    margin-top: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+hr {
+    border: 0;
+    height: 1px;
+    background: var(--accent);
+    margin: 30px 0;
+}
