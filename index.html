@@ -20,15 +20,23 @@
         .container {
             width: 100%; max-width: 850px; background: var(--card); padding: 40px;
             border-radius: 30px; border: 1px solid var(--accent); box-shadow: 0 10px 50px rgba(0, 0, 0, 0.4);
-            position: relative; padding-bottom: 100px;
+            position: relative; padding-bottom: 120px;
         }
 
         h1 { text-align: center; color: var(--primary); font-weight: 300; letter-spacing: 2px; margin-bottom: 5px; }
         .subtitle { text-align: center; color: var(--gold); font-size: 0.85rem; margin-bottom: 40px; opacity: 0.7; font-style: italic; letter-spacing: 3px; text-transform: uppercase; }
 
         .section { margin-bottom: 25px; }
-        label { display: block; margin-bottom: 12px; color: var(--primary); font-size: 12px; font-weight: 600; text-transform: uppercase; }
+        label { display: block; margin-bottom: 10px; color: var(--primary); font-size: 12px; font-weight: 600; text-transform: uppercase; }
         
+        /* BARRE DE RECHERCHE */
+        .search-bar {
+            width: 100%; padding: 10px 15px; margin-bottom: 10px; border-radius: 10px;
+            border: 1px solid var(--accent); background: #1A1F1C; color: var(--primary);
+            font-size: 14px; outline: none; box-sizing: border-box; transition: 0.3s;
+        }
+        .search-bar:focus { border-color: var(--gold); box-shadow: 0 0 5px rgba(230, 194, 0, 0.3); }
+
         select { 
             width: 100%; padding: 14px; border-radius: 12px; border: 1px solid var(--accent); 
             background: #2D3631 !important; color: #FFFFFF !important;
@@ -36,12 +44,12 @@
         }
         select:focus { border-color: var(--primary); }
 
-        /* Style des titres dans le menu */
         select option:disabled { color: var(--gold) !important; font-weight: bold; background: #1A1F1C; }
 
         .total-container { margin-top: 40px; padding: 35px; background: rgba(141, 228, 175, 0.05); border: 1px dashed var(--primary); border-radius: 20px; text-align: center; }
         .total-label { font-size: 13px; color: var(--gold); letter-spacing: 4px; margin-bottom: 10px; }
         #prix-total { font-size: 50px; font-weight: 200; color: var(--primary); }
+        .warning-text { font-size: 11px; color: var(--gold); opacity: 0.7; margin-top: 15px; text-transform: uppercase; letter-spacing: 1px; }
 
         .social-links { position: absolute; bottom: 25px; right: 25px; display: flex; gap: 15px; }
         .social-link { font-size: 24px; color: #ccc; transition: 0.3s; filter: grayscale(100%) opacity(0.6); text-decoration: none; }
@@ -60,6 +68,7 @@
     <div class="total-container">
         <div class="total-label">BUTIN ESTIMÉ</div>
         <div><span id="prix-total">0</span> €</div>
+        <p class="warning-text">⚠️ Prix sujets à variation</p>
     </div>
 
     <div class="social-links">
@@ -78,17 +87,17 @@
             dataComposants = await reponse.json();
             const form = document.getElementById('config-form');
 
-            // Parcourir chaque catégorie du JSON
             for (const key in dataComposants) {
                 if (key === "base_pc") continue;
 
                 const section = document.createElement('div');
                 section.className = 'section';
-                
+                const idSelect = `select-${key}`;
+                const nomAffiche = key.replace(/_/g, ' ');
+
                 let optionsHtml = `<option value="0">-- CHOISIR --</option>`;
                 
                 dataComposants[key].forEach(item => {
-                    // Si le nom commence par --- c'est un titre décoratif
                     if (item.nom.startsWith('---')) {
                         optionsHtml += `<option disabled>${item.nom}</option>`;
                     } else {
@@ -96,20 +105,33 @@
                     }
                 });
 
-                // On transforme les "underscores" du JSON en espaces pour l'affichage
-                const nomPropre = key.replace(/_/g, ' ');
-
                 section.innerHTML = `
-                    <label>${nomPropre}</label>
-                    <select class="comp-select" onchange="calculerTotal()">
+                    <label>${nomAffiche}</label>
+                    <input type="text" class="search-bar" placeholder="🔍 Rechercher un ${nomAffiche}..." 
+                           onkeyup="filtrerOptions('${idSelect}', this.value)">
+                    <select id="${idSelect}" class="comp-select" onchange="calculerTotal()">
                         ${optionsHtml}
                     </select>
                 `;
                 form.appendChild(section);
             }
             calculerTotal();
-        } catch (e) {
-            console.error("Erreur de chargement du grimoire (JSON) :", e);
+        } catch (e) { console.error("Erreur JSON :", e); }
+    }
+
+    function filtrerOptions(idSelect, texte) {
+        const select = document.getElementById(idSelect);
+        const filtre = texte.toLowerCase();
+        const options = select.options;
+
+        for (let i = 0; i < options.length; i++) {
+            const texteOption = options[i].text.toLowerCase();
+            // Garder "Choisir" et les titres "---" toujours visibles
+            if (i === 0 || options[i].disabled) {
+                options[i].style.display = "";
+            } else {
+                options[i].style.display = texteOption.includes(filtre) ? "" : "none";
+            }
         }
     }
 
@@ -119,7 +141,6 @@
             total += parseInt(s.value) || 0;
         });
         
-        // Ajout du prix de montage/licence si présent
         if (dataComposants.base_pc && dataComposants.base_pc.prix) {
             total += dataComposants.base_pc.prix;
         }
