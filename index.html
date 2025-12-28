@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Le Comptoir du Farfadet - Configurateur</title>
-    <link rel="stylesheet" href="style.css"> </head>
+    <link rel="stylesheet" href="style.css">
+</head>
 <body>
 
     <div class="configurateur">
@@ -49,19 +50,20 @@
 
         <div class="total-container">
             <h2>Total estimé : <span id="prix-total">0</span>€</h2>
-            <p class="maj-info">⚠️ Prix sujets à variation (mis à jour régulièrement)</p>
+            <p class="maj-info">⚠️ Prix sujets à variation</p>
         </div>
     </div>
 
     <script>
         let donneesPC = {};
 
-        // Charger le JSON
         async function chargerComposants() {
             try {
+                // On récupère le JSON
                 const response = await fetch('composants.json');
                 donneesPC = await response.json();
                 
+                // On remplit chaque menu
                 remplirSelect('processeurs', donneesPC.processeurs);
                 remplirSelect('cartes_meres', donneesPC.cartes_meres);
                 remplirSelect('memoire_ram', donneesPC.memoire_ram);
@@ -72,45 +74,41 @@
 
                 calculerTotal();
             } catch (error) {
-                console.error("Erreur lors du chargement du JSON:", error);
+                console.error("Erreur de chargement JSON:", error);
             }
         }
 
-        // Fonction pour remplir les menus déroulants
         function remplirSelect(id, liste) {
             const select = document.getElementById(id);
-            select.innerHTML = ""; // Vide le menu
+            select.innerHTML = ""; 
 
-            liste.forEach((item, index) => {
+            liste.forEach((item) => {
                 const option = document.createElement('option');
-                option.text = item.nom + (item.prix > 0 ? ` (+${item.prix}€)` : "");
-                option.value = item.prix;
-
+                
                 // Si c'est un titre (commence par ---)
                 if (item.nom.startsWith('---')) {
-                    option.disabled = true;
-                    option.style.fontWeight = "bold";
-                    option.style.backgroundColor = "#f0f0f0";
-                    option.style.color = "#333";
+                    option.text = item.nom;
+                    option.value = 0;
+                    option.disabled = true; // Empêche la sélection
+                } else {
+                    option.text = `${item.nom} (+${item.prix}€)`;
+                    option.value = item.prix;
                 }
-
                 select.appendChild(option);
             });
         }
 
-        // Calcul du prix total
         function calculerTotal() {
             const ids = ['processeurs', 'cartes_meres', 'memoire_ram', 'cartes_graphiques', 'refroidissement', 'alimentation', 'boitiers'];
             let total = 0;
 
             ids.forEach(id => {
                 const select = document.getElementById(id);
-                if (select.value) {
+                if (select && select.value) {
                     total += parseInt(select.value);
                 }
             });
 
-            // Ajouter le prix de base (Montage/Licence)
             if (donneesPC.base_pc) {
                 total += donneesPC.base_pc.prix;
             }
@@ -120,14 +118,5 @@
 
         window.onload = chargerComposants;
     </script>
-
-    <style>
-        /* Petit ajout de style pour la lisibilité */
-        .configurateur { font-family: sans-serif; max-width: 500px; margin: auto; padding: 20px; border: 1px solid #ddd; border-radius: 10px; }
-        .section { margin-bottom: 15px; display: flex; flex-direction: column; }
-        select { padding: 8px; border-radius: 5px; border: 1px solid #ccc; margin-top: 5px; }
-        .total-container { text-align: center; background: #f9f9f9; padding: 10px; border-radius: 8px; }
-        .maj-info { font-size: 0.8em; color: #666; font-style: italic; }
-    </style>
 </body>
 </html>
